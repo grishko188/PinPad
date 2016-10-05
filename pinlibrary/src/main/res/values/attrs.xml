@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PinCodeField">
+        <attr name="pcf_max_len" format="integer|reference" />
+        <attr name="pcf_letter_spacing" format="dimension|reference" />
+        <attr name="pcf_size" format="dimension|reference" />
+
+        <attr name="pcf_style">
+            <enum name="stroke" value="1" />
+            <enum name="fill" value="0" />
+        </attr>
+        <attr name="pcf_color" format="color" />
+        <attr name="pcf_fill_color" format="color" />
+        <attr name="pcf_max_try" format="integer" />
+        <attr name="pcf_stroke_width" format="dimension" />
+    </declare-styleable>
+</resources>
