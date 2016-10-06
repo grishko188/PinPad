@@ -14,4 +14,19 @@
         <attr name="pcf_max_try" format="integer" />
         <attr name="pcf_stroke_width" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="KeyboardView">
+        <attr name="kv_color_style">
+            <enum name="light" value="0" />
+            <enum name="dark" value="1" />
+            <enum name="custom" value="2" />
+        </attr>
+        <attr name="kv_form_style">
+            <enum name="round" value="0" />
+            <enum name="square" value="1" />
+            <enum name="square_no_borders" value="2" />
+        </attr>
+        <attr name="kv_custom_color" format="color" />
+        <attr name="kv_button_text_size" format="reference|dimension" />
+    </declare-styleable>
 </resources>
