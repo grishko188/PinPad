@@ -27,7 +27,6 @@
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        app:pcf_color="@color/custom"
         app:pcf_letter_spacing="10dp"
         app:pcf_max_len="4"
         app:pcf_size="28dp"
@@ -40,8 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        app:kv_button_text_size="20sp"
-        app:kv_color_style="custom"
+        app:kv_button_text_size="26sp"
+        app:kv_color_style="light"
         app:kv_custom_color="@color/custom"
-        app:kv_form_style="square" />
+        app:kv_form_style="round" />
 </RelativeLayout>

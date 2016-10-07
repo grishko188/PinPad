@@ -120,46 +120,89 @@ public class PinCodeField extends EditText {
         addTextChangedListener(mTextWatcher);
     }
 
+    /**
+     * Setup new draw style - one from enum {@link PinCodeFieldStyle}
+     * <br/><li/> {@link PinCodeFieldStyle#STROKE} - an empty symbol will be drawn like a transparent circle with a stroke.
+     * <br/><li/> {@link PinCodeFieldStyle#FILL} - an empty symbol will be drawn like a fill circle.
+     * The color of circle's body is a transparent version of main pin code field color or color which set by {@link PinCodeField#setFillColor(int)}
+     * <p>
+     * <br/><br/> Default value is {@link PinCodeFieldStyle#STROKE}
+     */
     public void setStyle(PinCodeFieldStyle style) {
         this.mStyle = style;
     }
 
+    /**
+     * @return - current {@link PinCodeFieldStyle}
+     */
     public PinCodeFieldStyle getStyle() {
         return mStyle;
     }
 
+    /**
+     * Setup color for {@link PinCodeField}
+     */
     public void setColor(@ColorRes int color) {
         this.mColor = color;
     }
 
+    /**
+     * @return - current color
+     */
     public int getColor() {
         return mColor;
     }
 
+    /**
+     * Setup fill color for empty char. This color will be used only for {@link PinCodeFieldStyle#FILL}
+     */
     public void setFillColor(@ColorRes int color) {
         this.mFillColor = color;
     }
 
+    /**
+     * @return - current fill color
+     */
     public int getFillColor() {
         return mFillColor;
     }
 
+    /**
+     * @return - number of mas tries
+     */
     public int getMaxTryCount() {
         return mMaxTryCount;
     }
 
+    /**
+     * Setup max number of tries
+     */
     public void setMaxTryCount(int mMaxTryCount) {
         this.mMaxTryCount = mMaxTryCount;
     }
 
+    /**
+     * @return - current callback
+     */
     public OnPinCodeListener getOnPinCodeListener() {
         return mOnPinCodeListener;
     }
 
+    /**
+     * Setup callback to interact with PinCodeField
+     * <br/> Implement four methods:
+     * <br/><li/>{@link OnPinCodeListener#onPinEntered(String)} - calls when user enter correct pin code
+     * <br/><li/>{@link OnPinCodeListener#verifyPinCode(String)} - implements validation of entered PIN code
+     * <br/><li/>{@link OnPinCodeListener#onPinError(int)} - calls when for current pin code method <b>verifyPinCode(String)</b> returns <b>false</b>. The argument passed to the method the number of remaining attempts
+     * <br/><li/>{@link OnPinCodeListener#onPinEnterFail()} -  calls when the number of attempts exceeds the specified maximum number of attempts. In this case we recommend to reset pin code and delete all stored user data, to prevent password guessing
+     */
     public void setOnPinCodeListener(OnPinCodeListener mOnPinCodeListener) {
         this.mOnPinCodeListener = mOnPinCodeListener;
     }
 
+    /**
+     * Reset pin code state. Clear text and set tries count to 0
+     */
     public void reset() {
         setText(null);
         mTryCount = 0;
@@ -298,6 +341,7 @@ public class PinCodeField extends EditText {
 
     public enum PinCodeFieldStyle {
         FILL, STROKE;
+
         private static PinCodeFieldStyle fromAttrs(int key) {
             switch (key) {
                 case 0:

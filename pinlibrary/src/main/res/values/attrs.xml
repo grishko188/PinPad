@@ -25,6 +25,7 @@
             <enum name="round" value="0" />
             <enum name="square" value="1" />
             <enum name="square_no_borders" value="2" />
+            <enum name="round_no_borders" value="3" />
         </attr>
         <attr name="kv_custom_color" format="color" />
         <attr name="kv_button_text_size" format="reference|dimension" />
