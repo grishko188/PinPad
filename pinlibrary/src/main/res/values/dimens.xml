@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="btn_text_size">16sp</dimen>
+    <dimen name="btn_text_size">20sp</dimen>
+    <dimen name="title_text_size">18sp</dimen>
+    <dimen name="forgot_pin_text_size">16sp</dimen>
     <dimen name="keyboard_margin">20dp</dimen>
 </resources>

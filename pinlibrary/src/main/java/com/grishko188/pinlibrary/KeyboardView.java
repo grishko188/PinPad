@@ -32,12 +32,10 @@ public class KeyboardView extends LinearLayout {
 
     private static final int DEFAULT_STYLE = 0;
     private static final int LIGHT_COLOR = android.R.color.white;
-    private static final int DARK_COLOR = R.color.dark;
 
-    private KeyboardColorStyle mColorStyle = KeyboardColorStyle.fromAttrs(DEFAULT_STYLE);
     private KeyboardFormStyle mFormStyle = KeyboardFormStyle.fromAttrs(DEFAULT_STYLE);
 
-    private int mKeyboardCustomColor;
+    private int mKeyboardColor;
     private int mButtonTextSize;
     private boolean isFingerprintEnable = false;
 
@@ -90,12 +88,9 @@ public class KeyboardView extends LinearLayout {
 
             if (array != null) {
                 mFormStyle = KeyboardFormStyle.fromAttrs(array.getInteger(R.styleable.KeyboardView_kv_form_style, DEFAULT_STYLE));
-                mColorStyle = KeyboardColorStyle.fromAttrs(array.getInteger(R.styleable.KeyboardView_kv_color_style, DEFAULT_STYLE));
-                if (mColorStyle == KeyboardColorStyle.CUSTOM) {
-                    mKeyboardCustomColor = array.getColor(R.styleable.KeyboardView_kv_custom_color, -1);
-                    if (mKeyboardCustomColor == -1) {
-                        mColorStyle = KeyboardColorStyle.LIGHT;
-                    }
+                mKeyboardColor = array.getColor(R.styleable.KeyboardView_kv_custom_color, -1);
+                if (mKeyboardColor == -1) {
+                    mKeyboardColor = getResources().getColor(LIGHT_COLOR);
                 }
                 mButtonTextSize = array.getDimensionPixelSize(R.styleable.KeyboardView_kv_button_text_size, (int) Utils.dp2px(getContext(), 16));
                 array.recycle();
@@ -105,7 +100,7 @@ public class KeyboardView extends LinearLayout {
 
     private void initKeyboardButtons() {
         mNumberButtons = new ArrayList<>();
-        mNumberButtons.add((SquareButton) findViewById(R.id.pin_code_button_0));
+
         mNumberButtons.add((SquareButton) findViewById(R.id.pin_code_button_1));
         mNumberButtons.add((SquareButton) findViewById(R.id.pin_code_button_2));
         mNumberButtons.add((SquareButton) findViewById(R.id.pin_code_button_3));
@@ -115,6 +110,7 @@ public class KeyboardView extends LinearLayout {
         mNumberButtons.add((SquareButton) findViewById(R.id.pin_code_button_7));
         mNumberButtons.add((SquareButton) findViewById(R.id.pin_code_button_8));
         mNumberButtons.add((SquareButton) findViewById(R.id.pin_code_button_9));
+        mNumberButtons.add((SquareButton) findViewById(R.id.pin_code_button_0));
 
         mBackspaceButton = (SquareImageButton) findViewById(R.id.backspace);
         mFingerprintButton = (SquareImageButton) findViewById(R.id.fingerprint);
@@ -195,27 +191,7 @@ public class KeyboardView extends LinearLayout {
     public void resetFingerprintState() {
         if (!isFingerprintEnable)
             return;
-        mFingerprintButton.setImageDrawable(DrawableUtil.tintDrawable(R.drawable.ic_fingerprint_white_24dp, getColor(), getResources()));
-    }
-
-    /**
-     * @return - current color style
-     */
-    public KeyboardColorStyle getColorStyle() {
-        return mColorStyle;
-    }
-
-    /**
-     * Setup new color style - one from enum {@link KeyboardColorStyle}
-     * <br/><li/> {@link KeyboardColorStyle#LIGHT} - #ffffff color for all controls
-     * <br/><li/> {@link KeyboardColorStyle#DARK} - #5b5b5b color for all controls
-     * <br/><li/> {@link KeyboardColorStyle#CUSTOM} - enable feature to use custom color which set with {@link KeyboardView#setKeyboardCustomColor(int)}
-     * <p>
-     * <br/><br/> Default value is {@link KeyboardColorStyle#LIGHT}
-     */
-    public void setColorStyle(KeyboardColorStyle mColorStyle) {
-        this.mColorStyle = mColorStyle;
-        applyStyle();
+        mFingerprintButton.setImageDrawable(DrawableUtil.tintDrawable(R.drawable.ic_fingerprint_white_24dp, mKeyboardColor, getResources()));
     }
 
     /**
@@ -231,12 +207,12 @@ public class KeyboardView extends LinearLayout {
      * <br/><li/> {@link KeyboardFormStyle#ROUND_NO_BORDERS} - round buttons without stroke
      * <br/><li/> {@link KeyboardFormStyle#SQUARE} - square buttons with 0.5dp stroke
      * <br/><li/> {@link KeyboardFormStyle#SQUARE_NO_BORDERS} - square buttons without stroke
-     * <p>
+     * <p/>
      * <br/> All styles have general UI rules:
      * <br/><li/> Buttons are transparent
      * <br/><li/> Have buttons strokes or not depend on selected style
-     * <br/><li/> For API version > 21, Buttons have ripple effect. Color of ripple effect depends on {@link KeyboardColorStyle} and {@link KeyboardView#setKeyboardCustomColor(int)} for {@link KeyboardColorStyle#CUSTOM}
-     * <br/><li/> For API version < 21, Buttons have simple state list selector. Color of pressed state depends on {@link KeyboardColorStyle} and {@link KeyboardView#setKeyboardCustomColor(int)} for {@link KeyboardColorStyle#CUSTOM}, and will have some transparency}
+     * <br/><li/> For API version > 21, Buttons have ripple effect. Color of ripple effect depends on {@link KeyboardView#setKeyboardColor(int)}
+     * <br/><li/> For API version < 21, Buttons have simple state list selector. Color of pressed state depends on {@link KeyboardView#setKeyboardColor(int)}  and will have some transparency}
      * <br/><br/> Default value is {@link KeyboardFormStyle#ROUND}
      */
     public void setFormStyle(KeyboardFormStyle mFormStyle) {
@@ -244,20 +220,33 @@ public class KeyboardView extends LinearLayout {
         applyStyle();
     }
 
+    public void setFormStyle(int mFormStyle) {
+        setFormStyle(KeyboardFormStyle.fromAttrs(mFormStyle));
+    }
+
     /**
      * @return - keyboard custom color resource id
      */
     @ColorRes
-    public int getKeyboardCustomColor() {
-        return mKeyboardCustomColor;
+    public int getKeyboardColor() {
+        return mKeyboardColor;
     }
 
     /**
-     * Setup custom color resource id. The changes will be applied only for {@link KeyboardColorStyle#CUSTOM}
+     * Setup custom color resource id.
      */
-    public void setKeyboardCustomColor(@ColorRes int keyboardCustomColor) {
-        this.mKeyboardCustomColor = keyboardCustomColor;
+    public void setKeyboardColor(@ColorRes int keyboardCustomColor) {
+        this.mKeyboardColor = keyboardCustomColor;
         applyStyle();
+    }
+
+    public void setButtonsTextSize(int textSize) {
+        this.mButtonTextSize = textSize;
+        applyStyle();
+    }
+
+    public int getButtonsTextSize() {
+        return mButtonTextSize;
     }
 
     private OnClickListener mButtonsClickListener = new OnClickListener() {
@@ -307,36 +296,31 @@ public class KeyboardView extends LinearLayout {
         }
     }
 
-
     private void applyRoundTheme() {
-        int color = getColor();
-        Drawable numButtonsBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.selector_default_white_round, color, getResources(), DrawableUtil.Mask.ROUND);
-        Drawable backspaceButtonBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.selector_white_round_no_borders, color, getResources(), DrawableUtil.Mask.ROUND);
+        Drawable numButtonsBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.selector_default_white_round, mKeyboardColor, getResources(), DrawableUtil.Mask.ROUND);
+        Drawable backspaceButtonBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.selector_white_round_no_borders, mKeyboardColor, getResources(), DrawableUtil.Mask.ROUND);
 
-        setButtonTheme(color, numButtonsBackground, backspaceButtonBackground, null, (int) Utils.dp2px(getContext(), 8));
+        setButtonTheme(mKeyboardColor, numButtonsBackground, backspaceButtonBackground, null, (int) Utils.dp2px(getContext(), 8));
     }
 
     private void applyRoundNoBordersTheme() {
-        int color = getColor();
-        Drawable buttonsBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.selector_white_round_no_borders, color, getResources(), DrawableUtil.Mask.ROUND);
+        Drawable buttonsBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.selector_white_round_no_borders, mKeyboardColor, getResources(), DrawableUtil.Mask.ROUND);
 
-        setButtonTheme(color, buttonsBackground, buttonsBackground, null, (int) Utils.dp2px(getContext(), 8));
+        setButtonTheme(mKeyboardColor, buttonsBackground, buttonsBackground, null, (int) Utils.dp2px(getContext(), 8));
     }
 
     private void applySquareTheme() {
-        int color = getColor();
-        Drawable numButtonsBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.selector_default_white, color, getResources(), DrawableUtil.Mask.SQUARE);
-        Drawable backspaceButtonBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.selector_default_white_no_borders, color, getResources(), DrawableUtil.Mask.SQUARE);
-        Drawable fingerprintButtonBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.bg_white_square, color, getResources(), DrawableUtil.Mask.SQUARE);
+        Drawable numButtonsBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.selector_default_white, mKeyboardColor, getResources(), DrawableUtil.Mask.SQUARE);
+        Drawable backspaceButtonBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.selector_default_white_no_borders, mKeyboardColor, getResources(), DrawableUtil.Mask.SQUARE);
+        Drawable fingerprintButtonBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.bg_white_square, mKeyboardColor, getResources(), DrawableUtil.Mask.SQUARE);
 
-        setButtonTheme(color, numButtonsBackground, backspaceButtonBackground, fingerprintButtonBackground, 0);
+        setButtonTheme(mKeyboardColor, numButtonsBackground, backspaceButtonBackground, fingerprintButtonBackground, 0);
     }
 
     private void applySquareNoBoundsTheme() {
-        int color = getColor();
-        Drawable buttonsBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.selector_default_white_no_borders, color, getResources(), DrawableUtil.Mask.SQUARE);
+        Drawable buttonsBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.selector_default_white_no_borders, mKeyboardColor, getResources(), DrawableUtil.Mask.SQUARE);
 
-        setButtonTheme(color, buttonsBackground, buttonsBackground, null, 0);
+        setButtonTheme(mKeyboardColor, buttonsBackground, buttonsBackground, null, 0);
     }
 
 
@@ -345,7 +329,8 @@ public class KeyboardView extends LinearLayout {
         for (SquareButton squareButton : mNumberButtons) {
             squareButton.setTextColor(color);
             squareButton.setBackground(numButtonsBackground.getConstantState().newDrawable()); //workaround for very very strange issue!!
-            ((LinearLayout.LayoutParams) squareButton.getLayoutParams()).setMargins(margin, margin, margin, margin);
+            int number = Integer.parseInt(squareButton.getText().toString());
+            ((LinearLayout.LayoutParams) squareButton.getLayoutParams()).setMargins(margin, margin, number == 0 || number % 3 != 0 ? (int) (margin * 2.1) : margin, margin);
             squareButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, mButtonTextSize);
         }
 
@@ -353,45 +338,15 @@ public class KeyboardView extends LinearLayout {
         mBackspaceButton.setBackground(backspaceButtonBackground);
         mBackspaceButton.setImageDrawable(DrawableUtil.tintDrawable(R.drawable.ic_backspace_white_24dp, color, getResources()));
 
-        ((LinearLayout.LayoutParams) mFingerprintButton.getLayoutParams()).setMargins(margin, margin, margin, margin);
+        ((LinearLayout.LayoutParams) mFingerprintButton.getLayoutParams()).setMargins(margin, margin, (int) (margin * 2.1), margin);
         mFingerprintButton.setBackground(fingerprintButtonBackground);
         mFingerprintButton.setImageDrawable(DrawableUtil.tintDrawable(R.drawable.ic_fingerprint_white_24dp, color, getResources()));
-    }
-
-
-    private int getColor() {
-        switch (mColorStyle) {
-            case LIGHT:
-                return getResources().getColor(LIGHT_COLOR);
-            case DARK:
-                return getResources().getColor(DARK_COLOR);
-            case CUSTOM:
-                return mKeyboardCustomColor;
-            default:
-                return getResources().getColor(LIGHT_COLOR);
-        }
     }
 
     private void invalidateFingerprintButton() {
         mFingerprintButton.setVisibility(isFingerprintEnable ? VISIBLE : INVISIBLE);
     }
 
-
-    public enum KeyboardColorStyle {
-
-        LIGHT, DARK, CUSTOM;
-
-        private static KeyboardColorStyle fromAttrs(int key) {
-            switch (key) {
-                case 1:
-                    return DARK;
-                case 2:
-                    return CUSTOM;
-                default:
-                    return LIGHT;
-            }
-        }
-    }
 
     public enum KeyboardFormStyle {
         ROUND, SQUARE, SQUARE_NO_BORDERS, ROUND_NO_BORDERS;

@@ -30,4 +30,15 @@
         <attr name="kv_custom_color" format="color" />
         <attr name="kv_button_text_size" format="reference|dimension" />
     </declare-styleable>
+
+    <declare-styleable name="PinPadView">
+        <attr name="ppv_color" format="color" />
+        <attr name="ppv_buttons_text_size" format="dimension|reference" />
+        <attr name="ppv_keyboard_form_style">
+            <enum name="round" value="0" />
+            <enum name="square" value="1" />
+            <enum name="square_no_borders" value="2" />
+            <enum name="round_no_borders" value="3" />
+        </attr>
+    </declare-styleable>
 </resources>

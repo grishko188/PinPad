@@ -10,4 +10,15 @@
     <string name="btn_8">8</string>
     <string name="btn_9">9</string>
     <string name="btn_0">0</string>
+
+
+    <string name="title_forgot_pin">Forgot your PIN?</string>
+    <string name="title_pin_description">Enter PIN-code</string>
+
+    <string name="title_btn_skip">Skip</string>
+    <string name="title_btn_cancel">Cancel</string>
+
+    <string name="title_create_pin_code">Create PIN-code</string>
+    <string name="title_create_your_pin_code">Confirm your PIN-code</string>
+
 </resources>

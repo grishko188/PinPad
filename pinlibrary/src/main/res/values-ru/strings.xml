@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string name="title_forgot_pin">Забыли ПИН-код?</string>
+    <string name="title_pin_description">Введите ПИН-код.</string>
+    <string name="title_btn_skip">Пропустить</string>
+    <string name="title_btn_cancel">Отмена</string>
+    <string name="title_create_pin_code">Установите ПИН-код</string>
+    <string name="title_create_your_pin_code">Повторите ПИН-код</string>
+
+</resources>

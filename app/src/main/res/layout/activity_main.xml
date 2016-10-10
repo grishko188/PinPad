@@ -1,46 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#283593">
 
-    <ImageView
+    <com.grishko188.pinlibrary.PinPadView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/splash2" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#95000000" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#95000000" />
-
-    <com.grishko188.pinlibrary.PinCodeField
-        android:id="@+id/pin_code"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        app:pcf_letter_spacing="10dp"
-        app:pcf_max_len="4"
-        app:pcf_size="28dp"
-        app:pcf_stroke_width="1dp"
-        app:pcf_style="stroke" />
-
-    <com.grishko188.pinlibrary.KeyboardView
-        android:id="@+id/key_board"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        app:kv_button_text_size="26sp"
-        app:kv_color_style="light"
-        app:kv_custom_color="@color/custom"
-        app:kv_form_style="round" />
+        app:ppv_buttons_text_size="26dp"
+        app:ppv_color="@color/white"
+        app:ppv_keyboard_form_style="round" />
 </RelativeLayout>

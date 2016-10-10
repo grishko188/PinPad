@@ -125,7 +125,7 @@ public class PinCodeField extends EditText {
      * <br/><li/> {@link PinCodeFieldStyle#STROKE} - an empty symbol will be drawn like a transparent circle with a stroke.
      * <br/><li/> {@link PinCodeFieldStyle#FILL} - an empty symbol will be drawn like a fill circle.
      * The color of circle's body is a transparent version of main pin code field color or color which set by {@link PinCodeField#setFillColor(int)}
-     * <p>
+     * <p/>
      * <br/><br/> Default value is {@link PinCodeFieldStyle#STROKE}
      */
     public void setStyle(PinCodeFieldStyle style) {
@@ -142,8 +142,9 @@ public class PinCodeField extends EditText {
     /**
      * Setup color for {@link PinCodeField}
      */
-    public void setColor(@ColorRes int color) {
+    public void setColor(int color) {
         this.mColor = color;
+        invalidate();
     }
 
     /**

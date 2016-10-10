@@ -15,23 +15,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        PinCodeField field = (PinCodeField) findViewById(R.id.pin_code);
-        final KeyboardView keyboardView = (KeyboardView) findViewById(R.id.key_board);
-        keyboardView.attach(field);
-
-        keyboardView.addOnClickListener(new KeyboardView.OnButtonsClickListener() {
-            @Override
-            public void onNumButtonClick(View v, int number) {
-                Log.d("AA", "Click NumButton " + number);
-            }
-
-            @Override
-            public void onBackspaceClick(View v) {
-                Log.d("AA", "Click backspace");
-            }
-        });
-
-        keyboardView.setFingerprintEnable(Utils.isLollipop());
-
     }
 }
