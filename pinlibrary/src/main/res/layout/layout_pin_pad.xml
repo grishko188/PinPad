@@ -68,5 +68,5 @@
         android:layout_marginRight="60dp"
         android:gravity="center_vertical"
         app:kv_button_text_size="@dimen/btn_text_size"
-        app:kv_color_style="dark" />
+        app:kv_color="@color/dark" />
 </RelativeLayout>

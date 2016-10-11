@@ -38,7 +38,7 @@ public class PinCodeField extends EditText {
     private static final int DEFAULT_MAX_LENGTH = 4;
     private static final int DEFAULT_COLOR = android.R.color.white;
     private static final int DEFAULT_LETTER_SPACING = 5; //dp will be converted to pixels
-    private static final int DEFAULT_SIZE = 32; //dp will be converted to pixels
+    private static final int DEFAULT_SIZE = 25; //dp will be converted to pixels
     private static final int DEFAULT_STROKE_WIDTH = 1;//dp will be converted to pixels
 
 
@@ -132,6 +132,11 @@ public class PinCodeField extends EditText {
         this.mStyle = style;
     }
 
+
+    public void setStyle(int style) {
+        setStyle(PinCodeFieldStyle.fromAttrs(style));
+    }
+
     /**
      * @return - current {@link PinCodeFieldStyle}
      */
@@ -199,6 +204,37 @@ public class PinCodeField extends EditText {
      */
     public void setOnPinCodeListener(OnPinCodeListener mOnPinCodeListener) {
         this.mOnPinCodeListener = mOnPinCodeListener;
+    }
+
+
+    public void setMaxLength(int maxLength) {
+        this.mMaxLength = maxLength;
+        init();
+        invalidate();
+    }
+
+    public int getMaxLength() {
+        return mMaxLength;
+    }
+
+    public void setSize(float size) {
+        this.mSize = size;
+        init();
+        invalidate();
+    }
+
+    public float getSize() {
+        return mSize;
+    }
+
+    public void setPinLetterSpacing(int letterSpacing) {
+        this.mLetterSpacing = letterSpacing;
+        init();
+        invalidate();
+    }
+
+    public int getPinLetterSpacing() {
+        return mLetterSpacing;
     }
 
     /**

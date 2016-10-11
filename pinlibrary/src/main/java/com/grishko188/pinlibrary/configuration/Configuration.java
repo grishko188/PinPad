@@ -1,7 +1,6 @@
 package com.grishko188.pinlibrary.configuration;
 
 import android.content.Context;
-import android.support.annotation.ColorRes;
 import android.support.annotation.StringRes;
 
 import com.grishko188.pinlibrary.PinPadView;
@@ -17,7 +16,7 @@ import javax.crypto.Cipher;
  * @author Grishko Nikita
  *         on 10.10.2016.
  */
-public class ConfigurationBuilder {
+public class Configuration {
 
     private PinPadView.PinPadUsageMode mMode;
 
@@ -38,97 +37,97 @@ public class ConfigurationBuilder {
     private OnHelpButtonsClickListener mHelpButtonsListener;
     private Context mContext;
 
-    private static ConfigurationBuilder INSTANCE;
+    private static Configuration INSTANCE;
 
 
-    public static ConfigurationBuilder withContext(Context context) {
+    public static Configuration withContext(Context context) {
         if (INSTANCE == null)
-            INSTANCE = new ConfigurationBuilder();
+            INSTANCE = new Configuration();
         INSTANCE.mContext = context;
         return INSTANCE;
     }
 
 
-    public ConfigurationBuilder withUsageMode(PinPadView.PinPadUsageMode usageMode) {
+    public Configuration withUsageMode(PinPadView.PinPadUsageMode usageMode) {
         this.mMode = usageMode;
         return this;
     }
 
-    public ConfigurationBuilder withPinCodeTitle(@StringRes int title) {
+    public Configuration withPinCodeTitle(@StringRes int title) {
         return withPinCodeTitle(mContext.getString(title));
     }
 
-    public ConfigurationBuilder withPinCodeTitle(String title) {
+    public Configuration withPinCodeTitle(String title) {
         this.mPinCodeTitle = title;
         this.mIsShowPinCodeTitle = true;
         return this;
     }
 
-    public ConfigurationBuilder withConfirmPinCodeTitle(@StringRes int title) {
+    public Configuration withConfirmPinCodeTitle(@StringRes int title) {
         return withConfirmPinCodeTitle(mContext.getString(title));
     }
 
-    public ConfigurationBuilder withConfirmPinCodeTitle(String title) {
+    public Configuration withConfirmPinCodeTitle(String title) {
         this.mConfirmPinCodeTitle = title;
         return this;
     }
 
-    public ConfigurationBuilder withForgotPinCodeTitle(@StringRes int title) {
+    public Configuration withForgotPinCodeTitle(@StringRes int title) {
         return withForgotPinCodeTitle(mContext.getString(title));
     }
 
-    public ConfigurationBuilder withForgotPinCodeTitle(String title) {
+    public Configuration withForgotPinCodeTitle(String title) {
         this.mPinCodeForgotButtonTitle = title;
         this.mIsShowForgotButton = true;
         return this;
     }
 
-    public ConfigurationBuilder withSkipButtonTitle(@StringRes int title) {
+    public Configuration withSkipButtonTitle(@StringRes int title) {
         return withSkipButtonTitle(mContext.getString(title));
     }
 
-    public ConfigurationBuilder withSkipButtonTitle(String title) {
+    public Configuration withSkipButtonTitle(String title) {
         this.mSkipButtonTitle = title;
         this.mIsShowSkipButton = true;
         return this;
     }
 
-    public ConfigurationBuilder showSkipButton(boolean isShow) {
+    public Configuration showSkipButton(boolean isShow) {
         this.mIsShowSkipButton = isShow;
         return this;
     }
 
-    public ConfigurationBuilder showPinTitle(boolean isShow) {
+    public Configuration showPinTitle(boolean isShow) {
         this.mIsShowPinCodeTitle = isShow;
         return this;
     }
 
-    public ConfigurationBuilder showForgotButton(boolean isShow) {
+    public Configuration showForgotButton(boolean isShow) {
         this.mIsShowForgotButton = isShow;
         return this;
     }
 
-    public ConfigurationBuilder withFigerprint(boolean isFingerprintEnable) {
+    public Configuration withFigerprint(boolean isFingerprintEnable) {
         this.isFingerprintEnable = isFingerprintEnable;
         return this;
     }
 
-    public ConfigurationBuilder withCryptoObject(Cipher cryptoObject) {
+    public Configuration withCryptoObject(Cipher cryptoObject) {
         this.mCryptoObject = cryptoObject;
         return this;
     }
 
-    public ConfigurationBuilder withFingerprintAuthListener(OnFingerprintAuthListener listener) {
+    public Configuration withFingerprintAuthListener(OnFingerprintAuthListener listener) {
         this.mFingerprintAuthListener = listener;
         return this;
     }
 
-    public ConfigurationBuilder withPinCodeListener(OnPinCodeListener listener) {
+    public Configuration withPinCodeListener(OnPinCodeListener listener) {
         this.mPinCodeListener = listener;
         return this;
     }
 
-    public ConfigurationBuilder withHelpButtonsListener(OnHelpButtonsClickListener listener) {
+    public Configuration withHelpButtonsListener(OnHelpButtonsClickListener listener) {
         this.mHelpButtonsListener = listener;
         return this;
     }

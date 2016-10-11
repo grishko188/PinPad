@@ -10,5 +10,9 @@
         android:layout_height="match_parent"
         app:ppv_buttons_text_size="26dp"
         app:ppv_color="@color/white"
-        app:ppv_keyboard_form_style="round" />
+        app:ppv_empty_char_style="fill"
+        app:ppv_keyboard_form_style="round"
+        app:ppv_letter_spacing="10dp"
+        app:ppv_max_len="4"
+        app:ppv_size="24dp" />
 </RelativeLayout>

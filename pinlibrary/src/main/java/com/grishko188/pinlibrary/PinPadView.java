@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.grishko188.pinlibrary.configuration.ConfigurationBuilder;
+import com.grishko188.pinlibrary.configuration.Configuration;
 import com.grishko188.pinlibrary.utils.DrawableUtil;
 import com.grishko188.pinlibrary.utils.Utils;
 
@@ -33,30 +33,35 @@ public class PinPadView extends RelativeLayout {
     private int mColor;
     private int mKeyboardFormStyle;
     private int mKeyboardTextSize;
-
+    private int mMaxLength;
+    private float mSize;
+    private int mPinStyle;
+    private int mMaxTryCount;
+    private int mFillColor;
+    private int mLetterSpacing;
 
     private PinPadUsageMode mUsageMode;
 
-    private ConfigurationBuilder mCurrentConfiguration;
+    private Configuration mCurrentConfiguration;
 
     public PinPadView(Context context) {
         super(context);
         init();
-        applyUIConfiguration();
+        applyUIStyle();
     }
 
     public PinPadView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
         initAttrs(attrs);
-        applyUIConfiguration();
+        applyUIStyle();
     }
 
     public PinPadView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
         initAttrs(attrs);
-        applyUIConfiguration();
+        applyUIStyle();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -64,7 +69,7 @@ public class PinPadView extends RelativeLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();
         initAttrs(attrs);
-        applyUIConfiguration();
+        applyUIStyle();
     }
 
     private void initAttrs(AttributeSet attrs) {
@@ -75,6 +80,15 @@ public class PinPadView extends RelativeLayout {
                 mColor = array.getColor(R.styleable.PinPadView_ppv_color, getResources().getColor(R.color.dark));
                 mKeyboardFormStyle = array.getInt(R.styleable.PinPadView_ppv_keyboard_form_style, 0);
                 mKeyboardTextSize = array.getDimensionPixelSize(R.styleable.PinPadView_ppv_buttons_text_size, (int) Utils.dp2px(getContext(), 20));
+
+                mSize = array.getDimensionPixelSize(R.styleable.PinPadView_ppv_size, (int) Utils.dp2px(getContext(), 24));
+                mMaxLength = array.getInteger(R.styleable.PinPadView_ppv_max_len, 4);
+                mPinStyle = array.getInt(R.styleable.PinPadView_ppv_empty_char_style, 0);
+
+                mMaxTryCount = array.getInteger(R.styleable.PinPadView_ppv_max_try, 4);
+                mLetterSpacing = array.getDimensionPixelSize(R.styleable.PinPadView_ppv_letter_spacing
+                        , (int) Utils.dp2px(getContext(), 5));
+                mFillColor = array.getColor(R.styleable.PinPadView_ppv_fill_color, Utils.addColorTransparency(mColor));
                 array.recycle();
             }
         }
@@ -92,18 +106,26 @@ public class PinPadView extends RelativeLayout {
         mKeyboard.attach(mPinField);
     }
 
-    public void setUpNewConfiguration(ConfigurationBuilder builder) {
-        this.mCurrentConfiguration = builder;
+    public void setUpNewConfiguration(Configuration configuration) {
+        this.mCurrentConfiguration = configuration;
         applyConfiguration();
     }
 
-    private void applyUIConfiguration() {
+    private void applyUIStyle() {
+
         mPinField.setColor(mColor);
+        mPinField.setMaxLength(mMaxLength);
+        mPinField.setStyle(mPinStyle);
+        mPinField.setSize(mSize);
+        mPinField.setFillColor(mFillColor);
+        mPinField.setMaxTryCount(mMaxTryCount);
+        mPinField.setPinLetterSpacing(mLetterSpacing);
+
         mKeyboard.setKeyboardColor(mColor);
         mKeyboard.setFormStyle(mKeyboardFormStyle);
         mKeyboard.setButtonsTextSize(mKeyboardTextSize);
 
-        mSkip.setBackgroundDrawable(DrawableUtil.tintBackgroundDrawable(R.drawable.selector_btn_skip, mColor, getResources(), DrawableUtil.Mask.SQUARE));
+        mSkip.setBackgroundDrawable(DrawableUtil.tintBackgroundDrawable(R.drawable.selector_btn_skip, mColor, getResources(), DrawableUtil.Mask.SQUARE_WITH_CORNERS));
         mSkip.setTextColor(mColor);
         mForgotPin.setBackgroundDrawable(DrawableUtil.tintBackgroundDrawable(R.drawable.selector_default_white_no_borders, mColor, getResources(), DrawableUtil.Mask.SQUARE));
         mForgotPin.setPaintFlags(mForgotPin.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);

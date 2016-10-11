@@ -38,7 +38,7 @@ public class DrawableUtil {
     }
 
     public enum Mask {
-        ROUND(R.drawable.round_mask), SQUARE(R.drawable.square_mask);
+        ROUND(R.drawable.round_mask), SQUARE(R.drawable.square_mask), SQUARE_WITH_CORNERS(R.drawable.square_with_corners_mask);
 
         @DrawableRes
         private int resId;

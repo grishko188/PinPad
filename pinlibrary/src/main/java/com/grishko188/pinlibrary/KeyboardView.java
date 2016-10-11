@@ -88,7 +88,7 @@ public class KeyboardView extends LinearLayout {
 
             if (array != null) {
                 mFormStyle = KeyboardFormStyle.fromAttrs(array.getInteger(R.styleable.KeyboardView_kv_form_style, DEFAULT_STYLE));
-                mKeyboardColor = array.getColor(R.styleable.KeyboardView_kv_custom_color, -1);
+                mKeyboardColor = array.getColor(R.styleable.KeyboardView_kv_color, -1);
                 if (mKeyboardColor == -1) {
                     mKeyboardColor = getResources().getColor(LIGHT_COLOR);
                 }
