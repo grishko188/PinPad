@@ -6,6 +6,7 @@
     android:background="#283593">
 
     <com.grishko188.pinlibrary.PinPadView
+        android:id="@+id/pin_pad"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:ppv_buttons_text_size="26dp"

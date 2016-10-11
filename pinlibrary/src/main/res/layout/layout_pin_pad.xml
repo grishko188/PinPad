@@ -34,9 +34,10 @@
 
     <TextView
         android:id="@+id/btn_forgot_pin"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/pin_code_field"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:gravity="center"
@@ -55,18 +56,25 @@
         android:layout_marginLeft="68dp"
         android:layout_marginRight="68dp"
         android:background="@drawable/selector_btn_skip"
-        android:text="@string/title_btn_skip" />
+        android:text="@string/title_btn_skip"
+        android:visibility="invisible" />
 
-    <com.grishko188.pinlibrary.KeyboardView
-        android:id="@+id/keyboard"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/skip"
-        android:layout_below="@+id/btn_forgot_pin"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
-        android:gravity="center_vertical"
-        app:kv_button_text_size="@dimen/btn_text_size"
-        app:kv_color="@color/dark" />
+        android:layout_below="@+id/btn_forgot_pin">
+
+        <com.grishko188.pinlibrary.KeyboardView
+            android:id="@+id/keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:gravity="center"
+            app:kv_button_text_size="@dimen/btn_text_size"
+            app:kv_color="@color/dark" />
+    </RelativeLayout>
 </RelativeLayout>

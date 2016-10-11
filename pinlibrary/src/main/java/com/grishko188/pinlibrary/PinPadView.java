@@ -5,13 +5,16 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Paint;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.grishko188.pinlibrary.configuration.Configuration;
+import com.grishko188.pinlibrary.interfaces.OnPinCodeListener;
 import com.grishko188.pinlibrary.utils.DrawableUtil;
 import com.grishko188.pinlibrary.utils.Utils;
 
@@ -39,8 +42,6 @@ public class PinPadView extends RelativeLayout {
     private int mMaxTryCount;
     private int mFillColor;
     private int mLetterSpacing;
-
-    private PinPadUsageMode mUsageMode;
 
     private Configuration mCurrentConfiguration;
 
@@ -111,6 +112,69 @@ public class PinPadView extends RelativeLayout {
         applyConfiguration();
     }
 
+    public int getColor() {
+        return mColor;
+    }
+
+    public void setColor(int color) {
+        this.mColor = color;
+        applyUIStyle();
+    }
+
+    public int getKeyboardTextSize() {
+        return mKeyboardTextSize;
+    }
+
+    public void setKeyboardTextSize(int keyboardTextSize) {
+        this.mKeyboardTextSize = keyboardTextSize;
+        applyUIStyle();
+    }
+
+    public int getMaxLength() {
+        return mMaxLength;
+    }
+
+    public void setMaxLength(int maxLength) {
+        this.mMaxLength = maxLength;
+        applyUIStyle();
+    }
+
+    public float getSize() {
+        return mSize;
+    }
+
+    public void setSize(float size) {
+        this.mSize = size;
+        applyUIStyle();
+    }
+
+    public int getMaxTryCount() {
+        return mMaxTryCount;
+    }
+
+    public void setMaxTryCount(int maxTryCount) {
+        this.mMaxTryCount = maxTryCount;
+        applyUIStyle();
+    }
+
+    public int getFillColor() {
+        return mFillColor;
+    }
+
+    public void setFillColor(int fillColor) {
+        this.mFillColor = fillColor;
+        applyUIStyle();
+    }
+
+    public int getLetterSpacing() {
+        return mLetterSpacing;
+    }
+
+    public void setLetterSpacing(int letterSpacing) {
+        this.mLetterSpacing = letterSpacing;
+        applyUIStyle();
+    }
+
     private void applyUIStyle() {
 
         mPinField.setColor(mColor);
@@ -135,21 +199,134 @@ public class PinPadView extends RelativeLayout {
 
     private void applyConfiguration() {
 
+        if (mCurrentConfiguration == null)
+            return;
+
+        buildTitle();
+        buildHelpButtons();
+        buildForMode();
+        buildFingerprint();
+    }
+
+    private void buildTitle() {
+        mPinTitle.setVisibility(getConfig().isShowPinCodeTitle() ? VISIBLE : INVISIBLE);
+        if (!TextUtils.isEmpty(getConfig().getPinCodeTitle())) {
+            mPinTitle.setText(getConfig().getPinCodeTitle());
+        }
+    }
+
+    private void buildHelpButtons() {
+
+        mForgotPin.setVisibility(getConfig().isShowForgotButton() ? VISIBLE : INVISIBLE);
+        if (!TextUtils.isEmpty(getConfig().getPinCodeForgotButtonTitle())) {
+            mForgotPin.setText(getConfig().getPinCodeForgotButtonTitle());
+        }
+        mForgotPin.setOnClickListener(mForgotButtonClickListener);
+
+        mSkip.setVisibility(getConfig().isShowSkipButton() ? VISIBLE : INVISIBLE);
+        if (!TextUtils.isEmpty(getConfig().getSkipButtonTitle())) {
+            mSkip.setText(getConfig().getSkipButtonTitle());
+        }
+        mSkip.setOnClickListener(mSkipButtonClickListener);
+    }
+
+    private void buildForMode() {
+        if (getConfig().getMode() == PinPadUsageMode.SETUP) {
+            mPinField.setOnPinCodeListener(new SetupPinCodeListener());
+            mKeyboard.setFingerprintEnable(false);
+        } else {
+            mPinField.setOnPinCodeListener(getConfig().getPinCodeListener());
+        }
+    }
+
+    private void buildFingerprint() {
+    }
+
+    private Configuration getConfig() {
+        return mCurrentConfiguration;
+    }
+
+
+    private OnClickListener mForgotButtonClickListener = new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (getConfig() != null && getConfig().getHelpButtonsListener() != null) {
+                getConfig().getHelpButtonsListener().onForgotPinCode(view);
+            }
+        }
+    };
+
+    private OnClickListener mSkipButtonClickListener = new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (getConfig() != null
+                    && getConfig().getHelpButtonsListener() != null) {
+                getConfig().getHelpButtonsListener().onSkip(view);
+            }
+        }
+    };
+
+
+    private class SetupPinCodeListener implements OnPinCodeListener {
+
+        private String pinCode;
+        private boolean isConfirmation;
+
+        @Override
+        public void onPinEntered(String correctPinCode) {
+            if (!isConfirmation) {
+                showPinConfirmation();
+            } else {
+                if (getConfig().getSetupPinCodeListener() != null) {
+                    getConfig().getSetupPinCodeListener().onSuccess(correctPinCode);
+                }
+            }
+        }
+
+        @Override
+        public void onPinError(int triesLeft) {
+            resetPinView();
+            if (getConfig().getSetupPinCodeListener() != null)
+                getConfig().getSetupPinCodeListener().onFail();
+            pinCode = null;
+        }
+
+        @Override
+        public void onPinEnterFail() {
+            //unused in this case
+        }
+
+        @Override
+        public boolean verifyPinCode(String input) {
+            isConfirmation = !TextUtils.isEmpty(pinCode);
+            if (!isConfirmation) {
+                pinCode = input;
+                return true;
+            }
+            return pinCode.equalsIgnoreCase(input);
+        }
+
+        public void showPinConfirmation() {
+            mPinField.setText(null);
+            if (TextUtils.isEmpty(getConfig().getConfirmPinCodeTitle())) {
+                mPinTitle.setText(R.string.title_confirm_your_pin_code);
+            } else {
+                mPinTitle.setText(getConfig().getConfirmPinCodeTitle());
+            }
+        }
+
+        public void resetPinView() {
+            if (TextUtils.isEmpty(getConfig().getPinCodeTitle())) {
+                mPinTitle.setText(R.string.title_create_pin_code);
+            } else {
+                mPinTitle.setText(getConfig().getPinCodeTitle());
+            }
+            mPinField.reset();
+        }
     }
 
 
     public enum PinPadUsageMode {
-
-        ENTER,
-        SETUP;
-
-        private static PinPadUsageMode fromAttrs(int key) {
-            switch (key) {
-                case 0:
-                    return ENTER;
-                default:
-                    return SETUP;
-            }
-        }
+        ENTER, SETUP
     }
 }

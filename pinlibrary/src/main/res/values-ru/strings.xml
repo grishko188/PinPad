@@ -7,6 +7,6 @@
     <string name="title_btn_skip">Пропустить</string>
     <string name="title_btn_cancel">Отмена</string>
     <string name="title_create_pin_code">Установите ПИН-код</string>
-    <string name="title_create_your_pin_code">Повторите ПИН-код</string>
+    <string name="title_confirm_your_pin_code">Повторите ПИН-код</string>
 
 </resources>

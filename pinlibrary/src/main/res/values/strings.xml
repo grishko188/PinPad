@@ -19,6 +19,6 @@
     <string name="title_btn_cancel">Cancel</string>
 
     <string name="title_create_pin_code">Create PIN-code</string>
-    <string name="title_create_your_pin_code">Confirm your PIN-code</string>
+    <string name="title_confirm_your_pin_code">Confirm your PIN-code</string>
 
 </resources>

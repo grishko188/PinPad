@@ -7,6 +7,7 @@ import com.grishko188.pinlibrary.PinPadView;
 import com.grishko188.pinlibrary.interfaces.OnFingerprintAuthListener;
 import com.grishko188.pinlibrary.interfaces.OnHelpButtonsClickListener;
 import com.grishko188.pinlibrary.interfaces.OnPinCodeListener;
+import com.grishko188.pinlibrary.interfaces.OnSetupPinCodeListener;
 
 import javax.crypto.Cipher;
 
@@ -18,170 +19,192 @@ import javax.crypto.Cipher;
  */
 public class Configuration {
 
-    private PinPadView.PinPadUsageMode mMode;
+    private PinPadView.PinPadUsageMode mode = PinPadView.PinPadUsageMode.ENTER;
 
-    private String mPinCodeTitle;
-    private String mConfirmPinCodeTitle;
-    private String mPinCodeForgotButtonTitle;
-    private String mSkipButtonTitle;
+    private String pinCodeTitle;
+    private String confirmPinCodeTitle;
+    private String pinCodeForgotButtonTitle;
+    private String skipButtonTitle;
 
-    private boolean mIsShowSkipButton;
-    private boolean mIsShowPinCodeTitle;
-    private boolean mIsShowForgotButton;
+    private boolean showSkipButton = mode != PinPadView.PinPadUsageMode.ENTER;
+    private boolean showPinCodeTitle = true;
+    private boolean showForgotButton = mode == PinPadView.PinPadUsageMode.ENTER;
 
     private boolean isFingerprintEnable;
 
-    private Cipher mCryptoObject;
-    private OnPinCodeListener mPinCodeListener;
-    private OnFingerprintAuthListener mFingerprintAuthListener;
-    private OnHelpButtonsClickListener mHelpButtonsListener;
-    private Context mContext;
+    private Cipher cryptoObject;
+    private OnPinCodeListener pinCodeListener;
+    private OnFingerprintAuthListener fingerprintAuthListener;
+    private OnHelpButtonsClickListener helpButtonsListener;
+    private OnSetupPinCodeListener setupPinCodeListener;
+    private Context context;
 
-    private static Configuration INSTANCE;
+    private static ConfigurationBuilder singleton;
 
-
-    public static Configuration withContext(Context context) {
-        if (INSTANCE == null)
-            INSTANCE = new Configuration();
-        INSTANCE.mContext = context;
-        return INSTANCE;
+    public static ConfigurationBuilder withContext(Context context) {
+        if (singleton == null)
+            singleton = new ConfigurationBuilder(context);
+        return singleton;
     }
-
-
-    public Configuration withUsageMode(PinPadView.PinPadUsageMode usageMode) {
-        this.mMode = usageMode;
-        return this;
-    }
-
-    public Configuration withPinCodeTitle(@StringRes int title) {
-        return withPinCodeTitle(mContext.getString(title));
-    }
-
-    public Configuration withPinCodeTitle(String title) {
-        this.mPinCodeTitle = title;
-        this.mIsShowPinCodeTitle = true;
-        return this;
-    }
-
-    public Configuration withConfirmPinCodeTitle(@StringRes int title) {
-        return withConfirmPinCodeTitle(mContext.getString(title));
-    }
-
-    public Configuration withConfirmPinCodeTitle(String title) {
-        this.mConfirmPinCodeTitle = title;
-        return this;
-    }
-
-    public Configuration withForgotPinCodeTitle(@StringRes int title) {
-        return withForgotPinCodeTitle(mContext.getString(title));
-    }
-
-    public Configuration withForgotPinCodeTitle(String title) {
-        this.mPinCodeForgotButtonTitle = title;
-        this.mIsShowForgotButton = true;
-        return this;
-    }
-
-    public Configuration withSkipButtonTitle(@StringRes int title) {
-        return withSkipButtonTitle(mContext.getString(title));
-    }
-
-    public Configuration withSkipButtonTitle(String title) {
-        this.mSkipButtonTitle = title;
-        this.mIsShowSkipButton = true;
-        return this;
-    }
-
-    public Configuration showSkipButton(boolean isShow) {
-        this.mIsShowSkipButton = isShow;
-        return this;
-    }
-
-    public Configuration showPinTitle(boolean isShow) {
-        this.mIsShowPinCodeTitle = isShow;
-        return this;
-    }
-
-    public Configuration showForgotButton(boolean isShow) {
-        this.mIsShowForgotButton = isShow;
-        return this;
-    }
-
-    public Configuration withFigerprint(boolean isFingerprintEnable) {
-        this.isFingerprintEnable = isFingerprintEnable;
-        return this;
-    }
-
-    public Configuration withCryptoObject(Cipher cryptoObject) {
-        this.mCryptoObject = cryptoObject;
-        return this;
-    }
-
-    public Configuration withFingerprintAuthListener(OnFingerprintAuthListener listener) {
-        this.mFingerprintAuthListener = listener;
-        return this;
-    }
-
-    public Configuration withPinCodeListener(OnPinCodeListener listener) {
-        this.mPinCodeListener = listener;
-        return this;
-    }
-
-    public Configuration withHelpButtonsListener(OnHelpButtonsClickListener listener) {
-        this.mHelpButtonsListener = listener;
-        return this;
-    }
-
-    public void build(PinPadView view) {
-        view.setUpNewConfiguration(this);
-    }
-
 
     public PinPadView.PinPadUsageMode getMode() {
-        return mMode;
+        return mode;
     }
 
     public String getPinCodeTitle() {
-        return mPinCodeTitle;
+        return pinCodeTitle;
     }
 
     public String getPinCodeForgotButtonTitle() {
-        return mPinCodeForgotButtonTitle;
+        return pinCodeForgotButtonTitle;
     }
 
     public String getSkipButtonTitle() {
-        return mSkipButtonTitle;
+        return skipButtonTitle;
     }
 
     public boolean isShowSkipButton() {
-        return mIsShowSkipButton;
+        return showSkipButton;
     }
 
     public boolean isShowPinCodeTitle() {
-        return mIsShowPinCodeTitle;
+        return showPinCodeTitle;
     }
 
     public boolean isShowForgotButton() {
-        return mIsShowForgotButton;
+        return showForgotButton;
     }
 
     public boolean isFingerprintEnable() {
         return isFingerprintEnable;
     }
 
-    public Cipher getmCrytoObject() {
-        return mCryptoObject;
+    public Cipher getCrytoObject() {
+        return cryptoObject;
     }
 
     public OnPinCodeListener getPinCodeListener() {
-        return mPinCodeListener;
+        return pinCodeListener;
     }
 
     public OnFingerprintAuthListener getFingerpintAuthListener() {
-        return mFingerprintAuthListener;
+        return fingerprintAuthListener;
     }
 
     public OnHelpButtonsClickListener getHelpButtonsListener() {
-        return mHelpButtonsListener;
+        return helpButtonsListener;
+    }
+
+    public String getConfirmPinCodeTitle() {
+        return confirmPinCodeTitle;
+    }
+
+    public OnSetupPinCodeListener getSetupPinCodeListener() {
+        return setupPinCodeListener;
+    }
+
+
+    public static class ConfigurationBuilder {
+
+        private Configuration resultConfiguration;
+
+        public ConfigurationBuilder(Context context) {
+            resultConfiguration = new Configuration();
+            resultConfiguration.context = context;
+        }
+
+        public ConfigurationBuilder mode(PinPadView.PinPadUsageMode usageMode) {
+            resultConfiguration.mode = usageMode;
+            return this;
+        }
+
+        public ConfigurationBuilder withPinCodeTitle(@StringRes int title) {
+            return withPinCodeTitle(resultConfiguration.context.getString(title));
+        }
+
+        public ConfigurationBuilder withPinCodeTitle(String title) {
+            resultConfiguration.pinCodeTitle = title;
+            resultConfiguration.showPinCodeTitle = true;
+            return this;
+        }
+
+        public ConfigurationBuilder withConfirmPinCodeTitle(@StringRes int title) {
+            return withConfirmPinCodeTitle(resultConfiguration.context.getString(title));
+        }
+
+        public ConfigurationBuilder withConfirmPinCodeTitle(String title) {
+            resultConfiguration.confirmPinCodeTitle = title;
+            return this;
+        }
+
+        public ConfigurationBuilder withForgotPinCodeTitle(@StringRes int title) {
+            return withForgotPinCodeTitle(resultConfiguration.context.getString(title));
+        }
+
+        public ConfigurationBuilder withForgotPinCodeTitle(String title) {
+            resultConfiguration.pinCodeForgotButtonTitle = title;
+            resultConfiguration.showForgotButton = true;
+            return this;
+        }
+
+        public ConfigurationBuilder withSkipButtonTitle(@StringRes int title) {
+            return withSkipButtonTitle(resultConfiguration.context.getString(title));
+        }
+
+        public ConfigurationBuilder withSkipButtonTitle(String title) {
+            resultConfiguration.skipButtonTitle = title;
+            resultConfiguration.showSkipButton = true;
+            return this;
+        }
+
+        public ConfigurationBuilder showSkipButton(boolean isShow) {
+            resultConfiguration.showSkipButton = isShow;
+            return this;
+        }
+
+        public ConfigurationBuilder showPinTitle(boolean isShow) {
+            resultConfiguration.showPinCodeTitle = isShow;
+            return this;
+        }
+
+        public ConfigurationBuilder showForgotButton(boolean isShow) {
+            resultConfiguration.showForgotButton = isShow;
+            return this;
+        }
+
+        public ConfigurationBuilder useFigerprint(boolean isFingerprintEnable) {
+            resultConfiguration.isFingerprintEnable = isFingerprintEnable;
+            return this;
+        }
+
+        public ConfigurationBuilder withCryptoObject(Cipher cryptoObject) {
+            resultConfiguration.cryptoObject = cryptoObject;
+            return this;
+        }
+
+        public ConfigurationBuilder setFingerprintAuthListener(OnFingerprintAuthListener listener) {
+            resultConfiguration.fingerprintAuthListener = listener;
+            return this;
+        }
+
+        public ConfigurationBuilder setPinCodeListener(OnPinCodeListener listener) {
+            resultConfiguration.pinCodeListener = listener;
+            return this;
+        }
+
+        public ConfigurationBuilder setHelpButtonsListener(OnHelpButtonsClickListener listener) {
+            resultConfiguration.helpButtonsListener = listener;
+            return this;
+        }
+
+        public ConfigurationBuilder setSetupPinCodeListener(OnSetupPinCodeListener listener) {
+            resultConfiguration.setupPinCodeListener = listener;
+            return this;
+        }
+
+        public void build(PinPadView view) {
+            view.setUpNewConfiguration(resultConfiguration);
+        }
+
     }
 }
