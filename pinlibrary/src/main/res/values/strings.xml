@@ -20,5 +20,5 @@
 
     <string name="title_create_pin_code">Create PIN-code</string>
     <string name="title_confirm_your_pin_code">Confirm your PIN-code</string>
-
+    <string name="fingerprint_not_recognized">Not recognized</string>
 </resources>

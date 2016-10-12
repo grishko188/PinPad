@@ -7,4 +7,8 @@ package com.grishko188.pinlibrary.interfaces;
  *         on 10.10.2016.
  */
 public interface OnFingerprintAuthListener {
+
+    void onAuthenticated();
+
+    void onError();
 }

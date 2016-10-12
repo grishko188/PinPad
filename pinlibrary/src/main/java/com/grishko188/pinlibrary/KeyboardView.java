@@ -79,7 +79,6 @@ public class KeyboardView extends LinearLayout {
         LayoutInflater.from(getContext()).inflate(R.layout.view_keyboard, this);
         initKeyboardButtons();
         initListeners();
-        invalidateFingerprintButton();
     }
 
     private void initAttrs(AttributeSet attrs) {
@@ -114,6 +113,8 @@ public class KeyboardView extends LinearLayout {
 
         mBackspaceButton = (SquareImageButton) findViewById(R.id.backspace);
         mFingerprintButton = (SquareImageButton) findViewById(R.id.fingerprint);
+
+        mFingerprintButton.setVisibility(INVISIBLE);
     }
 
     private void initListeners() {
@@ -181,16 +182,16 @@ public class KeyboardView extends LinearLayout {
     @RequiresApi(23)
     public void setFingerprintEnable(boolean isEnable) {
         this.isFingerprintEnable = isEnable;
-        invalidateFingerprintButton();
     }
 
     /**
      * Display default fingerprint icon
      */
     @RequiresApi(23)
-    public void resetFingerprintState() {
+    public void startFingerprintListen() {
         if (!isFingerprintEnable)
             return;
+        mFingerprintButton.setVisibility(VISIBLE);
         mFingerprintButton.setImageDrawable(DrawableUtil.tintDrawable(R.drawable.ic_fingerprint_white_24dp, mKeyboardColor, getResources()));
     }
 
@@ -207,7 +208,7 @@ public class KeyboardView extends LinearLayout {
      * <br/><li/> {@link KeyboardFormStyle#ROUND_NO_BORDERS} - round buttons without stroke
      * <br/><li/> {@link KeyboardFormStyle#SQUARE} - square buttons with 0.5dp stroke
      * <br/><li/> {@link KeyboardFormStyle#SQUARE_NO_BORDERS} - square buttons without stroke
-     * <p/>
+     * <p>
      * <br/> All styles have general UI rules:
      * <br/><li/> Buttons are transparent
      * <br/><li/> Have buttons strokes or not depend on selected style
@@ -342,11 +343,6 @@ public class KeyboardView extends LinearLayout {
         mFingerprintButton.setBackground(fingerprintButtonBackground);
         mFingerprintButton.setImageDrawable(DrawableUtil.tintDrawable(R.drawable.ic_fingerprint_white_24dp, color, getResources()));
     }
-
-    private void invalidateFingerprintButton() {
-        mFingerprintButton.setVisibility(isFingerprintEnable ? VISIBLE : INVISIBLE);
-    }
-
 
     public enum KeyboardFormStyle {
         ROUND, SQUARE, SQUARE_NO_BORDERS, ROUND_NO_BORDERS;

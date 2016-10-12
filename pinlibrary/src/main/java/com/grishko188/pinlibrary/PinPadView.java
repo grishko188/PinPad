@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.grishko188.pinlibrary.configuration.Configuration;
+import com.grishko188.pinlibrary.fingerprint.FingerprintUiHelper;
 import com.grishko188.pinlibrary.interfaces.OnPinCodeListener;
 import com.grishko188.pinlibrary.utils.DrawableUtil;
 import com.grishko188.pinlibrary.utils.Utils;
@@ -44,6 +45,8 @@ public class PinPadView extends RelativeLayout {
     private int mLetterSpacing;
 
     private Configuration mCurrentConfiguration;
+
+    private FingerprintUiHelper mFingerprintUiHelper;
 
     public PinPadView(Context context) {
         super(context);
@@ -157,11 +160,11 @@ public class PinPadView extends RelativeLayout {
         applyUIStyle();
     }
 
-    public int getFillColor() {
+    public int getEmptyCharFillColor() {
         return mFillColor;
     }
 
-    public void setFillColor(int fillColor) {
+    public void setEmptyCharFillColor(int fillColor) {
         this.mFillColor = fillColor;
         applyUIStyle();
     }
@@ -173,6 +176,20 @@ public class PinPadView extends RelativeLayout {
     public void setLetterSpacing(int letterSpacing) {
         this.mLetterSpacing = letterSpacing;
         applyUIStyle();
+    }
+
+    public void onResume() {
+        if (mFingerprintUiHelper != null)
+            mFingerprintUiHelper.startListening(getConfig().getCryptoObject());
+    }
+
+    public void onPause() {
+        if (mFingerprintUiHelper != null)
+            mFingerprintUiHelper.stopListening();
+    }
+
+    public void reset() {
+        mPinField.reset();
     }
 
     private void applyUIStyle() {
@@ -205,7 +222,6 @@ public class PinPadView extends RelativeLayout {
         buildTitle();
         buildHelpButtons();
         buildForMode();
-        buildFingerprint();
     }
 
     private void buildTitle() {
@@ -236,10 +252,16 @@ public class PinPadView extends RelativeLayout {
             mKeyboard.setFingerprintEnable(false);
         } else {
             mPinField.setOnPinCodeListener(getConfig().getPinCodeListener());
+            buildFingerprint();
         }
     }
 
     private void buildFingerprint() {
+        if (getConfig().isFingerprintEnable()) {
+            FingerprintUiHelper.FingerprintUiHelperBuilder mFingerprintUiHelperBuilder = new FingerprintUiHelper.FingerprintUiHelperBuilder(getContext());
+            mFingerprintUiHelper = mFingerprintUiHelperBuilder.build(mKeyboard, getConfig().getFingerprintAuthListener());
+            mKeyboard.setFingerprintEnable(mFingerprintUiHelper.isFingerprintAuthAvailable());
+        }
     }
 
     private Configuration getConfig() {

@@ -2,14 +2,13 @@ package com.grishko188.pinlibrary.configuration;
 
 import android.content.Context;
 import android.support.annotation.StringRes;
+import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 
 import com.grishko188.pinlibrary.PinPadView;
 import com.grishko188.pinlibrary.interfaces.OnFingerprintAuthListener;
 import com.grishko188.pinlibrary.interfaces.OnHelpButtonsClickListener;
 import com.grishko188.pinlibrary.interfaces.OnPinCodeListener;
 import com.grishko188.pinlibrary.interfaces.OnSetupPinCodeListener;
-
-import javax.crypto.Cipher;
 
 /**
  * Created by Unreal Mojo
@@ -32,7 +31,7 @@ public class Configuration {
 
     private boolean isFingerprintEnable;
 
-    private Cipher cryptoObject;
+    private FingerprintManagerCompat.CryptoObject cryptoObject;
     private OnPinCodeListener pinCodeListener;
     private OnFingerprintAuthListener fingerprintAuthListener;
     private OnHelpButtonsClickListener helpButtonsListener;
@@ -79,7 +78,7 @@ public class Configuration {
         return isFingerprintEnable;
     }
 
-    public Cipher getCrytoObject() {
+    public FingerprintManagerCompat.CryptoObject getCryptoObject() {
         return cryptoObject;
     }
 
@@ -87,7 +86,7 @@ public class Configuration {
         return pinCodeListener;
     }
 
-    public OnFingerprintAuthListener getFingerpintAuthListener() {
+    public OnFingerprintAuthListener getFingerprintAuthListener() {
         return fingerprintAuthListener;
     }
 
@@ -177,7 +176,7 @@ public class Configuration {
             return this;
         }
 
-        public ConfigurationBuilder withCryptoObject(Cipher cryptoObject) {
+        public ConfigurationBuilder withCryptoObject(FingerprintManagerCompat.CryptoObject cryptoObject) {
             resultConfiguration.cryptoObject = cryptoObject;
             return this;
         }
