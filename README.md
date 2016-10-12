@@ -53,7 +53,7 @@ or create new instance as shown below:
                 ...
                 .build(mPimPad);
 ```
-<br/>3) Start / stop listening fingerprint
+<br/>4) Start / stop listening fingerprint
 ```
     @Override
     protected void onResume() {
@@ -69,7 +69,7 @@ or create new instance as shown below:
 ```
 <br/><br/>
 #### PinPadView Customization:
-<br/>1)UI with xml attributes:
+<br/>1) UI with xml attributes:
 ```
 <attr name="ppv_color" format="color" />
 <attr name="ppv_buttons_text_size" format="dimension|reference" />
@@ -99,4 +99,4 @@ or create new instance as shown below:
  public void setEmptyCharFillColor(int fillColor)
  public void setLetterSpacing(int letterSpacing)
 ```
-######## README and Sample poject still in progress
+<br/><br/>**README and Sample project still in progress**
