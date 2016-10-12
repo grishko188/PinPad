@@ -206,33 +206,50 @@ public class PinCodeField extends EditText {
         this.mOnPinCodeListener = mOnPinCodeListener;
     }
 
-
+    /**
+     * Set length of pin code
+     */
     public void setMaxLength(int maxLength) {
         this.mMaxLength = maxLength;
         init();
         invalidate();
     }
 
+    /**
+     * @return - pin code length
+     */
     public int getMaxLength() {
         return mMaxLength;
     }
 
+    /**
+     * Set size of pin code field
+     */
     public void setSize(float size) {
         this.mSize = size;
         init();
         invalidate();
     }
 
+    /**
+     * @return - field size
+     */
     public float getSize() {
         return mSize;
     }
 
+    /**
+     * Set spacing between dots in pin code field in pixels
+     */
     public void setPinLetterSpacing(int letterSpacing) {
         this.mLetterSpacing = letterSpacing;
         init();
         invalidate();
     }
 
+    /**
+     * @return - spacing between dots in pin code field in pixels
+     */
     public int getPinLetterSpacing() {
         return mLetterSpacing;
     }

@@ -208,7 +208,7 @@ public class KeyboardView extends LinearLayout {
      * <br/><li/> {@link KeyboardFormStyle#ROUND_NO_BORDERS} - round buttons without stroke
      * <br/><li/> {@link KeyboardFormStyle#SQUARE} - square buttons with 0.5dp stroke
      * <br/><li/> {@link KeyboardFormStyle#SQUARE_NO_BORDERS} - square buttons without stroke
-     * <p>
+     * <p/>
      * <br/> All styles have general UI rules:
      * <br/><li/> Buttons are transparent
      * <br/><li/> Have buttons strokes or not depend on selected style
@@ -241,11 +241,17 @@ public class KeyboardView extends LinearLayout {
         applyStyle();
     }
 
+    /**
+     * Set text size for num buttons in pixel
+     */
     public void setButtonsTextSize(int textSize) {
         this.mButtonTextSize = textSize;
         applyStyle();
     }
 
+    /**
+     * @return -text size for num buttons in pixel
+     */
     public int getButtonsTextSize() {
         return mButtonTextSize;
     }

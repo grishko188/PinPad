@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 showToast("Skip");
             }
         }).showSkipButton(true)
-                .useFigerprint(true)
+                .useFingerprint(true)
                 .setFingerprintAuthListener(new OnFingerprintAuthListener() {
                     @Override
                     public void onAuthenticated() {

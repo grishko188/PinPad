@@ -1,6 +1,8 @@
 package com.grishko188.pinlibrary;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Paint;
@@ -110,84 +112,140 @@ public class PinPadView extends RelativeLayout {
         mKeyboard.attach(mPinField);
     }
 
+    /**
+     * Apply new {@link Configuration} for PinPadView. The old configuration will be lost
+     */
     public void setUpNewConfiguration(Configuration configuration) {
         this.mCurrentConfiguration = configuration;
         applyConfiguration();
     }
 
+    /**
+     * @return - main PinPadView color
+     */
     public int getColor() {
         return mColor;
     }
 
+    /**
+     * Set main PinPadView color. All elements, and drawables will get tint of this color
+     */
     public void setColor(int color) {
         this.mColor = color;
         applyUIStyle();
     }
 
+    /**
+     * @return - text size for num buttons in pixel
+     */
     public int getKeyboardTextSize() {
         return mKeyboardTextSize;
     }
 
+    /**
+     * Set text size for num buttons in pixel
+     */
     public void setKeyboardTextSize(int keyboardTextSize) {
         this.mKeyboardTextSize = keyboardTextSize;
         applyUIStyle();
     }
 
+    /**
+     * @return length of {@link PinCodeField}
+     */
     public int getMaxLength() {
         return mMaxLength;
     }
 
+    /**
+     * Set length for {@link PinCodeField}
+     */
     public void setMaxLength(int maxLength) {
         this.mMaxLength = maxLength;
         applyUIStyle();
     }
 
+    /**
+     * @return size of {@link PinCodeField}
+     */
     public float getSize() {
         return mSize;
     }
 
+    /**
+     * Set size for {@link PinCodeField}
+     */
     public void setSize(float size) {
         this.mSize = size;
         applyUIStyle();
     }
 
+    /**
+     * @return max tries for {@link PinCodeField}
+     */
     public int getMaxTryCount() {
         return mMaxTryCount;
     }
 
+    /**
+     * Set max tries for {@link PinCodeField}
+     */
     public void setMaxTryCount(int maxTryCount) {
         this.mMaxTryCount = maxTryCount;
         applyUIStyle();
     }
 
+    /**
+     * @return fill color for empty char in {@link PinCodeField}
+     */
     public int getEmptyCharFillColor() {
         return mFillColor;
     }
 
+    /**
+     * Set fill color for empty char in {@link PinCodeField}. Have been applied only for {@link com.grishko188.pinlibrary.PinCodeField.PinCodeFieldStyle#FILL}
+     */
     public void setEmptyCharFillColor(int fillColor) {
         this.mFillColor = fillColor;
         applyUIStyle();
     }
 
+    /**
+     * @return spacing between dots in {@link PinCodeField} field in pixels
+     */
     public int getLetterSpacing() {
         return mLetterSpacing;
     }
 
+    /**
+     * Set spacing between dots in {@link PinCodeField} field in pixels
+     */
     public void setLetterSpacing(int letterSpacing) {
         this.mLetterSpacing = letterSpacing;
         applyUIStyle();
     }
 
+    /**
+     * Call this method inside {@link Activity#onResume()} or {@link Fragment#onResume()}, to start listening for authorization by fingerprint
+     * <br/> If fingerprint is not available on device, will do nothing
+     */
     public void onResume() {
         if (mFingerprintUiHelper != null)
             mFingerprintUiHelper.startListening(getConfig().getCryptoObject());
     }
 
+    /**
+     * Call this method inside {@link Activity#onPause()} or {@link Fragment#onPause()} , to cancel listening for authorization by fingerprint
+     * <br/> If fingerprint is not available on device, will do nothing
+     */
     public void onPause() {
         if (mFingerprintUiHelper != null)
             mFingerprintUiHelper.stopListening();
     }
 
+    /**
+     * Reset {@link PinCodeField} state.
+     */
     public void reset() {
         mPinField.reset();
     }
@@ -267,7 +325,6 @@ public class PinPadView extends RelativeLayout {
     private Configuration getConfig() {
         return mCurrentConfiguration;
     }
-
 
     private OnClickListener mForgotButtonClickListener = new OnClickListener() {
         @Override

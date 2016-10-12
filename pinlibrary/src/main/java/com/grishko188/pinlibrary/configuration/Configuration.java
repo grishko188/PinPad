@@ -171,7 +171,7 @@ public class Configuration {
             return this;
         }
 
-        public ConfigurationBuilder useFigerprint(boolean isFingerprintEnable) {
+        public ConfigurationBuilder useFingerprint(boolean isFingerprintEnable) {
             resultConfiguration.isFingerprintEnable = isFingerprintEnable;
             return this;
         }
