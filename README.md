@@ -67,3 +67,36 @@ or create new instance as shown below:
         mPinPad.onPause();
     }
 ```
+<br/><br/>
+#### PinPadView Customization:
+<br/>1)UI with xml attributes:
+```
+<attr name="ppv_color" format="color" />
+<attr name="ppv_buttons_text_size" format="dimension|reference" />
+<attr name="ppv_keyboard_form_style">
+     <enum name="round" value="0" />
+     <enum name="square" value="1" />
+     <enum name="square_no_borders" value="2" />
+     <enum name="round_no_borders" value="3" />
+</attr>
+<attr name="ppv_empty_char_style">
+    <enum name="stroke" value="1" />
+    <enum name="fill" value="0" />
+</attr>
+<attr name="ppv_max_len" format="integer|reference" />
+<attr name="ppv_size" format="dimension|reference" />
+<attr name="ppv_letter_spacing" format="dimension|reference" />
+<attr name="ppv_fill_color" format="color" />
+<attr name="ppv_max_try" format="integer" />
+```
+<br/>2) UI from Java code:
+```
+ public void setColor(int color) 
+ public void setKeyboardTextSize(int keyboardTextSize)
+ public void setMaxLength(int maxLength)
+ public void setSize(float size)
+ public void setMaxTryCount(int maxTryCount)
+ public void setEmptyCharFillColor(int fillColor)
+ public void setLetterSpacing(int letterSpacing)
+```
+######## README and Sample poject still in progress
