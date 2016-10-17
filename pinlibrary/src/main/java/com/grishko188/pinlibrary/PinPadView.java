@@ -30,6 +30,12 @@ import com.grishko188.pinlibrary.utils.Utils;
 public class PinPadView extends RelativeLayout {
 
 
+    private static final int DEFAULT_MAX_PINTRIES = 4;
+    private static final int DEFAULT_MAX_PINLENGTH = 4;
+    private static final float DEFAULT_KEYBOARD_TEXT_SIZE_DP = 20;
+    private static final float DEFAULT_DISPLAY_DIGIT_SIZE_DP = 24;
+    private static final float DEFAULT_KEYBOARD_TEXT_LETTERSPACING_DP = 5;
+
     private PinCodeField mPinField;
     private KeyboardView mKeyboard;
     private TextView mPinTitle;
@@ -88,10 +94,10 @@ public class PinPadView extends RelativeLayout {
                 mKeyboardTextSize = array.getDimensionPixelSize(R.styleable.PinPadView_ppv_buttons_text_size, (int) Utils.dp2px(getContext(), 20));
 
                 mSize = array.getDimensionPixelSize(R.styleable.PinPadView_ppv_size, (int) Utils.dp2px(getContext(), 24));
-                mMaxLength = array.getInteger(R.styleable.PinPadView_ppv_max_len, 4);
+                mMaxLength = array.getInteger(R.styleable.PinPadView_ppv_max_len, DEFAULT_MAX_PINLENGTH);
                 mPinStyle = array.getInt(R.styleable.PinPadView_ppv_empty_char_style, 0);
 
-                mMaxTryCount = array.getInteger(R.styleable.PinPadView_ppv_max_try, 4);
+                mMaxTryCount = array.getInteger(R.styleable.PinPadView_ppv_max_try, DEFAULT_MAX_PINTRIES);
                 mLetterSpacing = array.getDimensionPixelSize(R.styleable.PinPadView_ppv_letter_spacing
                         , (int) Utils.dp2px(getContext(), 5));
                 mFillColor = array.getColor(R.styleable.PinPadView_ppv_fill_color, Utils.addColorTransparency(mColor));
@@ -110,6 +116,17 @@ public class PinPadView extends RelativeLayout {
         mSkip = (Button) findViewById(R.id.skip);
 
         mKeyboard.attach(mPinField);
+
+        /**
+         * Setup default values in case PinPadView instance will be constructed without xml layout, e.g. initAttrs will never be called.
+         */
+        mColor = getResources().getColor(R.color.dark);
+        mKeyboardTextSize = (int) Utils.dp2px(getContext(), DEFAULT_KEYBOARD_TEXT_SIZE_DP);
+        mSize = (int) Utils.dp2px(getContext(), DEFAULT_DISPLAY_DIGIT_SIZE_DP);
+        mMaxLength = DEFAULT_MAX_PINLENGTH;
+        mMaxTryCount = DEFAULT_MAX_PINTRIES;
+        mLetterSpacing = (int) Utils.dp2px(getContext(), DEFAULT_KEYBOARD_TEXT_LETTERSPACING_DP);
+        mFillColor = Utils.addColorTransparency(mColor);
     }
 
     /**
