@@ -71,13 +71,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mPinPad.onResume(); //Call if want to work with fingerprint
+        mPinPad.startFingerprintScanner(); //Call if want to work with fingerprint
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mPinPad.onPause(); //Call if want to work with fingerprint
+        mPinPad.stopFingerprintScanner(); //Call if want to work with fingerprint
     }
 
     private void showToast(String text) {

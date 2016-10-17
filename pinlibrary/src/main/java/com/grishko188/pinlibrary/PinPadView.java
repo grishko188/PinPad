@@ -246,7 +246,7 @@ public class PinPadView extends RelativeLayout {
      * Call this method inside {@link Activity#onResume()} or {@link Fragment#onResume()}, to start listening for authorization by fingerprint
      * <br/> If fingerprint is not available on device, will do nothing
      */
-    public void onResume() {
+    public void startFingerprintScanner() {
         if (mFingerprintUiHelper != null)
             mFingerprintUiHelper.startListening(getConfig().getCryptoObject());
     }
@@ -255,7 +255,7 @@ public class PinPadView extends RelativeLayout {
      * Call this method inside {@link Activity#onPause()} or {@link Fragment#onPause()} , to cancel listening for authorization by fingerprint
      * <br/> If fingerprint is not available on device, will do nothing
      */
-    public void onPause() {
+    public void stopFingerprintScanner() {
         if (mFingerprintUiHelper != null)
             mFingerprintUiHelper.stopListening();
     }
@@ -321,6 +321,7 @@ public class PinPadView extends RelativeLayout {
         mSkip.setOnClickListener(mSkipButtonClickListener);
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     private void buildForMode() {
         if (getConfig().getMode() == PinPadUsageMode.SETUP) {
             mPinField.setOnPinCodeListener(new SetupPinCodeListener());
@@ -331,6 +332,7 @@ public class PinPadView extends RelativeLayout {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     private void buildFingerprint() {
         if (getConfig().isFingerprintEnable()) {
             FingerprintUiHelper.FingerprintUiHelperBuilder mFingerprintUiHelperBuilder = new FingerprintUiHelper.FingerprintUiHelperBuilder(getContext());
