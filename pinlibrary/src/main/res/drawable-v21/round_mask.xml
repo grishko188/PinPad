@@ -4,6 +4,6 @@
     <corners android:radius="180dp" />
     <stroke
         android:width="1dp"
-        android:color="@color/white" />
-    <solid android:color="@android:color/white" />
+        android:color="@color/pinlibrary_round_mask_border" />
+    <solid android:color="@color/pinlibrary_round_mask_fill" />
 </shape>

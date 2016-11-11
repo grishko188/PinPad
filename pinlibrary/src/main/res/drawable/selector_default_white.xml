@@ -2,21 +2,21 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
-            <stroke android:width="0.5dp" android:color="@color/white" />
+            <stroke android:width="0.5dp" android:color="@color/pinlibrary_pinbutton_border" />
             <padding android:bottom="8dp" android:left="8dp" android:right="8dp" android:top="8dp" />
-            <solid android:color="@color/white_transparent" />
+            <solid android:color="@color/pinlibrary_white_transparent" />
         </shape>
     </item>
     <item android:state_focused="true">
         <shape android:shape="rectangle">
-            <stroke android:width="0.5dp" android:color="@color/white" />
+            <stroke android:width="0.5dp" android:color="@color/pinlibrary_pinbutton_border" />
             <padding android:bottom="8dp" android:left="8dp" android:right="8dp" android:top="8dp" />
-            <solid android:color="@color/white_transparent" />
+            <solid android:color="@color/pinlibrary_white_transparent" />
         </shape>
     </item>
     <item>
         <shape android:shape="rectangle">
-            <stroke android:width="0.5dp" android:color="@color/white" />
+            <stroke android:width="0.5dp" android:color="@color/pinlibrary_pinbutton_border" />
             <padding android:bottom="8dp" android:left="8dp" android:right="8dp" android:top="8dp" />
             <solid android:color="@android:color/transparent" />
         </shape>

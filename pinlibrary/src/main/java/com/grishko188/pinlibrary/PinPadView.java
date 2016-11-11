@@ -89,7 +89,7 @@ public class PinPadView extends RelativeLayout {
             TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.PinPadView);
 
             if (array != null) {
-                mColor = array.getColor(R.styleable.PinPadView_ppv_color, getResources().getColor(R.color.dark));
+                mColor = array.getColor(R.styleable.PinPadView_ppv_color, getResources().getColor(R.color.pinlibrary_default));
                 mKeyboardFormStyle = array.getInt(R.styleable.PinPadView_ppv_keyboard_form_style, 0);
                 mKeyboardTextSize = array.getDimensionPixelSize(R.styleable.PinPadView_ppv_buttons_text_size, (int) Utils.dp2px(getContext(), 20));
 
@@ -120,7 +120,7 @@ public class PinPadView extends RelativeLayout {
         /**
          * Setup default values in case PinPadView instance will be constructed without xml layout, e.g. initAttrs will never be called.
          */
-        mColor = getResources().getColor(R.color.dark);
+        mColor = getResources().getColor(R.color.pinlibrary_default);
         mKeyboardTextSize = (int) Utils.dp2px(getContext(), DEFAULT_KEYBOARD_TEXT_SIZE_DP);
         mSize = (int) Utils.dp2px(getContext(), DEFAULT_DISPLAY_DIGIT_SIZE_DP);
         mMaxLength = DEFAULT_MAX_PINLENGTH;

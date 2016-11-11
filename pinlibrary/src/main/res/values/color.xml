@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="dark">#5b5b5b</color>
-    <color name="dark_transparent">#885b5b5b</color>
-    <color name="white">#FFFFFF</color>
-    <color name="white_transparent">#88FFFFFF</color>
-    <color name="custom">#aabb34</color>
+    <color name="pinlibrary_default">#5b5b5b</color>
+    <color name="pinlibrary_white_transparent">#88FFFFFF</color>
+    <color name="pinlibrary_pinbutton_border">#FFFFFF</color>
+    <color name="pinlibrary_round_mask_border">#FFFFFF</color>
+    <color name="pinlibrary_round_mask_fill">#FFFFFF</color>
 </resources>

@@ -337,7 +337,11 @@ public class KeyboardView extends LinearLayout {
             squareButton.setTextColor(color);
             squareButton.setBackground(numButtonsBackground.getConstantState().newDrawable()); //workaround for very very strange issue!!
             int number = Integer.parseInt(squareButton.getText().toString());
-            ((LinearLayout.LayoutParams) squareButton.getLayoutParams()).setMargins(margin, margin, number == 0 || number % 3 != 0 ? (int) (margin * 2.1) : margin, margin);
+
+            //todo: layout calculation bug - temporary commented out by livotov - to be investigated
+            //((LinearLayout.LayoutParams) squareButton.getLayoutParams()).setMargins(margin, margin, number == 0 || number % 3 != 0 ? (int) (margin * 2.1) : margin, margin);
+            // ==================
+
             squareButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, mButtonTextSize);
         }
 

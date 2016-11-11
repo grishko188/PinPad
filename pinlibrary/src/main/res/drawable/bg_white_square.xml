@@ -3,7 +3,7 @@
     android:shape="rectangle">
     <stroke
         android:width="0.5dp"
-        android:color="@color/white" />
+        android:color="@color/pinlibrary_pinbutton_border" />
     <padding
         android:bottom="8dp"
         android:left="8dp"

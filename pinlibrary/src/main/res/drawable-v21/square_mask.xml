@@ -3,6 +3,6 @@
     android:shape="rectangle">
     <stroke
         android:width="0.5dp"
-        android:color="@color/white" />
-    <solid android:color="@android:color/white" />
+        android:color="@color/pinlibrary_round_mask_border" />
+    <solid android:color="@color/pinlibrary_round_mask_fill" />
 </shape>

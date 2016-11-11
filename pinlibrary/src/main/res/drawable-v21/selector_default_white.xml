@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <stroke android:width="0.5dp" android:color="@color/white" />
+            <stroke android:width="0.5dp" android:color="@color/pinlibrary_pinbutton_border" />
             <solid android:color="@android:color/transparent" />
         </shape>
     </item>

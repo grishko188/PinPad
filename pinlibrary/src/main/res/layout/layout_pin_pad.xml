@@ -10,13 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/title_pin_description"
-        android:textColor="@color/dark"
+        android:textColor="@color/pinlibrary_default"
         android:textSize="@dimen/title_text_size" />
 
     <com.grishko188.pinlibrary.PinCodeField
@@ -28,8 +28,8 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        app:pcf_color="@color/dark"
+        android:layout_marginTop="5dp"
+        app:pcf_color="@color/pinlibrary_default"
         app:pcf_size="22dp" />
 
     <TextView
@@ -43,7 +43,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:text="@string/title_forgot_pin"
-        android:textColor="@color/dark"
+        android:textColor="@color/pinlibrary_default"
         android:textSize="@dimen/forgot_pin_text_size" />
 
     <Button
@@ -61,20 +61,22 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_above="@+id/skip"
-        android:layout_below="@+id/btn_forgot_pin">
+        android:layout_below="@+id/btn_forgot_pin"
+        android:clipChildren="false"
+        android:clipToPadding="false">
 
         <com.grishko188.pinlibrary.KeyboardView
             android:id="@+id/keyboard"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="60dp"
-            android:layout_marginRight="60dp"
+            android:layout_marginLeft="65dp"
+            android:layout_marginRight="65dp"
             android:gravity="center"
             app:kv_button_text_size="@dimen/btn_text_size"
-            app:kv_color="@color/dark" />
+            app:kv_color="@color/pinlibrary_default" />
     </RelativeLayout>
 </RelativeLayout>

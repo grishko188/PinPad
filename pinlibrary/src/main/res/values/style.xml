@@ -4,7 +4,7 @@
     <style name="KeyboardButtonStyleWhiteRound">
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/btn_text_size</item>
-        <item name="android:textColor">@color/dark</item>
+        <item name="android:textColor">@color/pinlibrary_default</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
