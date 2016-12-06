@@ -1,16 +1,20 @@
 package com.grishko188.pinlibrary;
 
+import android.animation.Animator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -43,6 +47,7 @@ public class KeyboardView extends LinearLayout {
     private SquareImageButton mBackspaceButton;
     private SquareImageButton mFingerprintButton;
     private EditText mInputForKeyboard;
+    private int mButtonsMargin;
 
     private List<OnButtonsClickListener> mOnClickListeners = new ArrayList<>();
 
@@ -162,7 +167,7 @@ public class KeyboardView extends LinearLayout {
     public void showFingerprintSuccess() {
         if (!isFingerprintEnable)
             return;
-        mFingerprintButton.setImageResource(R.drawable.ic_fingerprint_success);
+        switchIconWithAnimation(mFingerprintButton, getResources().getDrawable(R.drawable.ic_fingerprint_success));
     }
 
     /**
@@ -172,7 +177,17 @@ public class KeyboardView extends LinearLayout {
     public void showFingerprintFail() {
         if (!isFingerprintEnable)
             return;
-        mFingerprintButton.setImageResource(R.drawable.ic_fingerprint_error);
+        switchIconWithAnimation(mFingerprintButton, getResources().getDrawable(R.drawable.ic_fingerprint_error));
+    }
+
+    /**
+     * Display fingerprint icon with animation
+     */
+    @RequiresApi(23)
+    public void resetFingerprintState() {
+        if (!isFingerprintEnable)
+            return;
+        switchIconWithAnimation(mFingerprintButton, DrawableUtil.tintDrawable(R.drawable.ic_fingerprint_white_24dp, mKeyboardColor, getResources()));
     }
 
     /**
@@ -335,12 +350,10 @@ public class KeyboardView extends LinearLayout {
 
         for (SquareButton squareButton : mNumberButtons) {
             squareButton.setTextColor(color);
-            squareButton.setBackground(numButtonsBackground.getConstantState().newDrawable()); //workaround for very very strange issue!!
-            int number = Integer.parseInt(squareButton.getText().toString());
+            if (numButtonsBackground.getConstantState() != null)
+                squareButton.setBackground(numButtonsBackground.getConstantState().newDrawable()); //workaround for very very strange issue!!
 
-            //todo: layout calculation bug - temporary commented out by livotov - to be investigated
-            //((LinearLayout.LayoutParams) squareButton.getLayoutParams()).setMargins(margin, margin, number == 0 || number % 3 != 0 ? (int) (margin * 2.1) : margin, margin);
-            // ==================
+            ((LinearLayout.LayoutParams) squareButton.getLayoutParams()).setMargins(margin, margin, margin, margin);
 
             squareButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, mButtonTextSize);
         }
@@ -349,7 +362,7 @@ public class KeyboardView extends LinearLayout {
         mBackspaceButton.setBackground(backspaceButtonBackground);
         mBackspaceButton.setImageDrawable(DrawableUtil.tintDrawable(R.drawable.ic_backspace_white_24dp, color, getResources()));
 
-        ((LinearLayout.LayoutParams) mFingerprintButton.getLayoutParams()).setMargins(margin, margin, (int) (margin * 2.1), margin);
+        ((LinearLayout.LayoutParams) mFingerprintButton.getLayoutParams()).setMargins(margin, margin, margin, margin);
         mFingerprintButton.setBackground(fingerprintButtonBackground);
         mFingerprintButton.setImageDrawable(DrawableUtil.tintDrawable(R.drawable.ic_fingerprint_white_24dp, color, getResources()));
     }
@@ -369,6 +382,39 @@ public class KeyboardView extends LinearLayout {
                     return ROUND;
             }
         }
+    }
+
+    @RequiresApi(23)
+    private void switchIconWithAnimation(final SquareImageButton view, Drawable newIcon) {
+        view.setVisibility(INVISIBLE);
+        view.setImageDrawable(newIcon);
+        final int width = mFingerprintButton.getWidth();
+        final int height = mFingerprintButton.getHeight();
+        float maxRadius = (float) Math.sqrt(width * width / 4 + height * height / 4);
+        Animator reveal = ViewAnimationUtils.createCircularReveal(mFingerprintButton, width / 2, height / 2, 0, maxRadius);
+        reveal.setDuration(450);
+        reveal.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                view.setVisibility(VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        reveal.start();
     }
 
     public interface OnButtonsClickListener {

@@ -58,13 +58,13 @@ or create new instance as shown below:
     @Override
     protected void onResume() {
         super.onResume();
-        mPinPad.onResume(); 
+        mPinPad.startFingerprintScanner(); 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mPinPad.onPause();
+        mPinPad.stopFingerprintScanner();
     }
 ```
 <br/><br/>
@@ -99,4 +99,12 @@ or create new instance as shown below:
  public void setEmptyCharFillColor(int fillColor)
  public void setLetterSpacing(int letterSpacing)
 ```
-<br/><br/>**README and Sample project still in progress**
+<br/> For some devices icons auto tinting not working properly
+<br/> In this case just override library colors
+```
+    <color name="pinlibrary_default">#5b5b5b</color>
+    <color name="pinlibrary_white_transparent">#88FFFFFF</color>
+    <color name="pinlibrary_pinbutton_border">#FFFFFF</color>
+    <color name="pinlibrary_round_mask_border">#FFFFFF</color>
+    <color name="pinlibrary_round_mask_fill">#FFFFFF</color>
+```

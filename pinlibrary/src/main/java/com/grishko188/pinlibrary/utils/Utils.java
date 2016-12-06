@@ -11,8 +11,8 @@ import android.os.Build;
  */
 public class Utils {
 
-    public static  boolean isLollipop() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+    public static boolean isLollipop() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
     public static float px2dp(Context ctx, float px) {

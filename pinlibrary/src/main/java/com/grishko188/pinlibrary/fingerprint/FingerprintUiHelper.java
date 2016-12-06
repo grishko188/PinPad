@@ -16,17 +16,18 @@ import com.grishko188.pinlibrary.interfaces.OnFingerprintAuthListener;
  * Small helper class to manage text/icon around fingerprint authentication UI.
  */
 
+@SuppressWarnings("NewApi")
 public class FingerprintUiHelper extends FingerprintManagerCompat.AuthenticationCallback {
 
-    static final long ERROR_TIMEOUT_MILLIS = 1600;
-    static final long SUCCESS_DELAY_MILLIS = 1300;
+    private static final long ERROR_TIMEOUT_MILLIS = 1600;
+    private static final long SUCCESS_DELAY_MILLIS = 1300;
 
     private final FingerprintManagerCompat mFingerprintManager;
     private final KeyboardView mKeyboard;
     private final OnFingerprintAuthListener mCallback;
     private CancellationSignal mCancellationSignal;
 
-    boolean mSelfCancelled;
+    private boolean mSelfCancelled;
 
     /**
      * Builder class for {@link FingerprintUiHelper}
@@ -120,10 +121,10 @@ public class FingerprintUiHelper extends FingerprintManagerCompat.Authentication
         mKeyboard.postDelayed(mResetErrorRunnable, ERROR_TIMEOUT_MILLIS);
     }
 
-    Runnable mResetErrorRunnable = new Runnable() {
+    private Runnable mResetErrorRunnable = new Runnable() {
         @Override
         public void run() {
-            mKeyboard.startFingerprintListen();
+            mKeyboard.resetFingerprintState();
         }
     };
 
