@@ -89,6 +89,7 @@ or create new instance as shown below:
 <attr name="ppv_letter_spacing" format="dimension|reference" />
 <attr name="ppv_fill_color" format="color" />
 <attr name="ppv_max_try" format="integer" />
+<attr name="ppv_keyboard_width" format="dimension|reference" />
 ```
 <br/>2) UI from Java code:
 ```
@@ -99,6 +100,7 @@ or create new instance as shown below:
  public void setMaxTryCount(int maxTryCount)
  public void setEmptyCharFillColor(int fillColor)
  public void setLetterSpacing(int letterSpacing)
+ public void setKeyboardWidth(int keyboardWidth) 
 ```
 <br/> For some devices icons auto tinting not working properly
 <br/> In this case just override library colors
