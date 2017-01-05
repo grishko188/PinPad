@@ -44,5 +44,6 @@
         <attr name="ppv_letter_spacing" format="dimension|reference" />
         <attr name="ppv_fill_color" format="color" />
         <attr name="ppv_max_try" format="integer" />
+        <attr name="ppv_keyboard_width" format="dimension|reference" />
     </declare-styleable>
 </resources>

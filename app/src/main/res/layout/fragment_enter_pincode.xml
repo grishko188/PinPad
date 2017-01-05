@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.grishko188.pinlibrary.PinPadView
+        android:id="@+id/pin_pad"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:ppv_color="@color/colorPrimaryDark"
+        app:ppv_empty_char_style="fill"
+        app:ppv_keyboard_form_style="round"
+        app:ppv_keyboard_width="255dp"
+        app:ppv_letter_spacing="10dp"
+        app:ppv_max_len="4"
+        app:ppv_size="24dp" />
+</LinearLayout>

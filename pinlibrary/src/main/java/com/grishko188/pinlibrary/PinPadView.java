@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Paint;
 import android.os.Build;
+import android.support.annotation.DimenRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -51,6 +52,7 @@ public class PinPadView extends RelativeLayout {
     private int mMaxTryCount;
     private int mFillColor;
     private int mLetterSpacing;
+    private int mKeyboardWidth;
 
     private Configuration mCurrentConfiguration;
 
@@ -101,6 +103,8 @@ public class PinPadView extends RelativeLayout {
                 mLetterSpacing = array.getDimensionPixelSize(R.styleable.PinPadView_ppv_letter_spacing
                         , (int) Utils.dp2px(getContext(), 5));
                 mFillColor = array.getColor(R.styleable.PinPadView_ppv_fill_color, Utils.addColorTransparency(mColor));
+
+                mKeyboardWidth = array.getDimensionPixelSize(R.styleable.PinPadView_ppv_keyboard_width, getContext().getResources().getDimensionPixelSize(R.dimen.default_keyboard_width));
                 array.recycle();
             }
         }
@@ -180,6 +184,19 @@ public class PinPadView extends RelativeLayout {
     public void setMaxLength(int maxLength) {
         this.mMaxLength = maxLength;
         applyUIStyle();
+    }
+
+    public int getKeyboardWidth() {
+        return mKeyboardWidth;
+    }
+
+    public void setKeyboardWidth(int keyboardWidth) {
+        this.mKeyboardWidth = keyboardWidth;
+        applyUIStyle();
+    }
+
+    public void setKeyboardWidthRes(@DimenRes int widthRes) {
+        setKeyboardWidth(getResources().getDimensionPixelSize(widthRes));
     }
 
     /**
@@ -280,6 +297,7 @@ public class PinPadView extends RelativeLayout {
         mKeyboard.setKeyboardColor(mColor);
         mKeyboard.setFormStyle(mKeyboardFormStyle);
         mKeyboard.setButtonsTextSize(mKeyboardTextSize);
+        mKeyboard.getLayoutParams().width = mKeyboardWidth;
 
         mSkip.setBackgroundDrawable(DrawableUtil.tintBackgroundDrawable(R.drawable.selector_btn_skip, mColor, getResources(), DrawableUtil.Mask.SQUARE_WITH_CORNERS));
         mSkip.setTextColor(mColor);
@@ -404,7 +422,7 @@ public class PinPadView extends RelativeLayout {
             return pinCode.equalsIgnoreCase(input);
         }
 
-        public void showPinConfirmation() {
+        void showPinConfirmation() {
             mPinField.setText(null);
             if (TextUtils.isEmpty(getConfig().getConfirmPinCodeTitle())) {
                 mPinTitle.setText(R.string.title_confirm_your_pin_code);
@@ -413,7 +431,7 @@ public class PinPadView extends RelativeLayout {
             }
         }
 
-        public void resetPinView() {
+        void resetPinView() {
             if (TextUtils.isEmpty(getConfig().getPinCodeTitle())) {
                 mPinTitle.setText(R.string.title_create_pin_code);
             } else {

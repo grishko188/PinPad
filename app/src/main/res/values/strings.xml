@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">PinPad</string>
+    <string name="what_is_it">Whats going on?</string>
+    <string name="setup_pin_faq">Setup and confirm any pin code.</string>
+    <string name="invalid_pin_code">You enter invalid pin code. Try again.</string>
+    <string name="pin_code_setup_success">Your pin code: %s</string>
+    <string name="pin_code_enter_help">Enter 1111 for success authorization</string>
+    <string name="success">Authorization success.</string>
+    <string name="fail">You have exceeded the number of attempts.</string>
+    <string name="tries_left">Tries left: %d</string>
 </resources>

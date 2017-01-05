@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PinPad</string>
+    <string name="what_is_it">Что происходит?</string>
+    <string name="setup_pin_faq">Введите и подтвердите любой пин-код.</string>
+    <string name="invalid_pin_code">Вы ввели не правильный повторный пин-код. Повторите ещё раз.</string>
+    <string name="pin_code_enter_help">Введите 1111 для успешной авторизации.</string>
+    <string name="success">Авторизация прошла успешно.</string>
+    <string name="fail">Вы превысили кол-во попыток.</string>
+    <string name="tries_left">Осталось попыток: %d</string>
+</resources>

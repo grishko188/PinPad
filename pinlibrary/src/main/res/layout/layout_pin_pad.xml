@@ -69,12 +69,10 @@
 
         <com.grishko188.pinlibrary.KeyboardView
             android:id="@+id/keyboard"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/default_keyboard_width"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="65dp"
-            android:layout_marginRight="65dp"
             android:gravity="center"
             app:kv_button_text_size="@dimen/btn_text_size"
             app:kv_color="@color/pinlibrary_default" />

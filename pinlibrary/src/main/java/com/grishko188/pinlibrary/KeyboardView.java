@@ -7,10 +7,8 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +45,6 @@ public class KeyboardView extends LinearLayout {
     private SquareImageButton mBackspaceButton;
     private SquareImageButton mFingerprintButton;
     private EditText mInputForKeyboard;
-    private int mButtonsMargin;
 
     private List<OnButtonsClickListener> mOnClickListeners = new ArrayList<>();
 

@@ -67,6 +67,7 @@ or create new instance as shown below:
         mPinPad.stopFingerprintScanner();
     }
 ```
+<br/><b>For more information look into <a href="https://github.com/grishko188/PinPad/tree/master/app">sample project</a>.</b>
 <br/><br/>
 #### PinPadView Customization:
 <br/>1) UI with xml attributes:

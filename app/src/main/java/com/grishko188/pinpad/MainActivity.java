@@ -1,86 +1,69 @@
 package com.grishko188.pinpad;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
-import com.grishko188.pinlibrary.PinPadView;
-import com.grishko188.pinlibrary.configuration.Configuration;
-import com.grishko188.pinlibrary.interfaces.OnFingerprintAuthListener;
-import com.grishko188.pinlibrary.interfaces.OnHelpButtonsClickListener;
-import com.grishko188.pinlibrary.interfaces.OnPinCodeListener;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
-    PinPadView mPinPad;
+
+    @BindView(R.id.pager)
+    protected ViewPager mPager;
+    @BindView(R.id.tabs)
+    protected TabLayout mTab;
+    @BindView(R.id.toolbar)
+    protected Toolbar mToolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mPinPad = (PinPadView) findViewById(R.id.pin_pad);
+        ButterKnife.bind(this);
+        setSupportActionBar(mToolbar);
+        mPager.setAdapter(new MainPagerAdapter());
+        mTab.setupWithViewPager(mPager);
+    }
 
-        Configuration.withContext(this)
-                .mode(PinPadView.PinPadUsageMode.ENTER)
-                .setPinCodeListener(new OnPinCodeListener() {
-                    @Override
-                    public void onPinEntered(String correctPinCode) {
-                        showToast("Success: " + correctPinCode);
-                    }
+    private class MainPagerAdapter extends FragmentStatePagerAdapter {
 
-                    @Override
-                    public void onPinError(int triesLeft) {
-                        showToast("Pin Error, tries left: " + triesLeft);
-                    }
+        public MainPagerAdapter() {
+            super(getSupportFragmentManager());
+        }
 
-                    @Override
-                    public void onPinEnterFail() {
-                        showToast("FAIL!");
-                    }
-
-                    @Override
-                    public boolean verifyPinCode(String input) {
-                        return "1111".equalsIgnoreCase(input);
-                    }
-                }).setHelpButtonsListener(new OnHelpButtonsClickListener() {
-            @Override
-            public void onForgotPinCode(View v) {
-                showToast("Forgot");
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return SetupPinCodeFragment.getInstance();
+                case 1:
+                    return EnterPinCodeFragment.getInstance();
             }
+            return null;
+        }
 
-            @Override
-            public void onSkip(View v) {
-                showToast("Skip");
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "Setup PinCode";
+                case 1:
+                    return "Enter PinCode";
+                default:
+                    return null;
             }
-        }).showSkipButton(true)
-                .useFingerprint(true)
-                .setFingerprintAuthListener(new OnFingerprintAuthListener() {
-                    @Override
-                    public void onAuthenticated() {
-                        showToast("Fingerprint onAuthenticated");
-                    }
-
-                    @Override
-                    public void onError() {
-                        showToast("Fingerprint Error");
-                    }
-                }).build(mPinPad);
-
+        }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mPinPad.startFingerprintScanner(); //Call if want to work with fingerprint
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mPinPad.stopFingerprintScanner(); //Call if want to work with fingerprint
-    }
-
-    private void showToast(String text) {
-        Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
-    }
 }
