@@ -44,6 +44,7 @@ public class PinPadView extends RelativeLayout {
     private Button mSkip;
 
     private int mColor;
+    private int mPinCodeFieldColor;
     private int mKeyboardFormStyle;
     private int mKeyboardTextSize;
     private int mMaxLength;
@@ -92,6 +93,7 @@ public class PinPadView extends RelativeLayout {
 
             if (array != null) {
                 mColor = array.getColor(R.styleable.PinPadView_ppv_color, getResources().getColor(R.color.pinlibrary_default));
+                mPinCodeFieldColor = array.getColor(R.styleable.PinPadView_ppv_pin_code_field_color, mColor);
                 mKeyboardFormStyle = array.getInt(R.styleable.PinPadView_ppv_keyboard_form_style, 0);
                 mKeyboardTextSize = array.getDimensionPixelSize(R.styleable.PinPadView_ppv_buttons_text_size, (int) Utils.dp2px(getContext(), 20));
 
@@ -286,7 +288,7 @@ public class PinPadView extends RelativeLayout {
 
     private void applyUIStyle() {
 
-        mPinField.setColor(mColor);
+        mPinField.setColor(mPinCodeFieldColor);
         mPinField.setMaxLength(mMaxLength);
         mPinField.setStyle(mPinStyle);
         mPinField.setSize(mSize);
