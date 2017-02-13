@@ -316,20 +316,33 @@ public class KeyboardView extends LinearLayout {
     }
 
     private void applyRoundTheme() {
-        Drawable numButtonsBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.selector_default_white_round, mKeyboardColor, getResources(), DrawableUtil.Mask.ROUND);
+        List<Drawable> numButtonsBackground = new ArrayList<>(mNumberButtons.size());
+        for (int i = 0; i < mNumberButtons.size(); i++) {
+            numButtonsBackground.add(DrawableUtil.tintBackgroundDrawable(R.drawable.selector_default_white_round, mKeyboardColor, getResources(), DrawableUtil.Mask.ROUND));
+        }
+
         Drawable backspaceButtonBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.selector_white_round_no_borders, mKeyboardColor, getResources(), DrawableUtil.Mask.ROUND);
 
         setButtonTheme(mKeyboardColor, numButtonsBackground, backspaceButtonBackground, null, (int) Utils.dp2px(getContext(), 8));
     }
 
     private void applyRoundNoBordersTheme() {
-        Drawable buttonsBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.selector_white_round_no_borders, mKeyboardColor, getResources(), DrawableUtil.Mask.ROUND);
+        List<Drawable> buttonsBackground = new ArrayList<>(mNumberButtons.size());
+        for (int i = 0; i < mNumberButtons.size(); i++) {
+            buttonsBackground.add(DrawableUtil.tintBackgroundDrawable(R.drawable.selector_white_round_no_borders, mKeyboardColor, getResources(), DrawableUtil.Mask.ROUND));
+        }
 
-        setButtonTheme(mKeyboardColor, buttonsBackground, buttonsBackground, null, (int) Utils.dp2px(getContext(), 8));
+        Drawable backspaceButtonBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.selector_white_round_no_borders, mKeyboardColor, getResources(), DrawableUtil.Mask.ROUND);
+
+        setButtonTheme(mKeyboardColor, buttonsBackground, backspaceButtonBackground, null, (int) Utils.dp2px(getContext(), 8));
     }
 
     private void applySquareTheme() {
-        Drawable numButtonsBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.selector_default_white, mKeyboardColor, getResources(), DrawableUtil.Mask.SQUARE);
+        List<Drawable> numButtonsBackground = new ArrayList<>(mNumberButtons.size());
+        for (int i = 0; i < mNumberButtons.size(); i++) {
+            numButtonsBackground.add(DrawableUtil.tintBackgroundDrawable(R.drawable.selector_default_white, mKeyboardColor, getResources(), DrawableUtil.Mask.SQUARE));
+        }
+
         Drawable backspaceButtonBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.selector_default_white_no_borders, mKeyboardColor, getResources(), DrawableUtil.Mask.SQUARE);
         Drawable fingerprintButtonBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.bg_white_square, mKeyboardColor, getResources(), DrawableUtil.Mask.SQUARE);
 
@@ -337,18 +350,22 @@ public class KeyboardView extends LinearLayout {
     }
 
     private void applySquareNoBoundsTheme() {
-        Drawable buttonsBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.selector_default_white_no_borders, mKeyboardColor, getResources(), DrawableUtil.Mask.SQUARE);
+        List<Drawable> buttonsBackground = new ArrayList<>(mNumberButtons.size());
+        for (int i = 0; i < mNumberButtons.size(); i++) {
+            buttonsBackground.add(DrawableUtil.tintBackgroundDrawable(R.drawable.selector_default_white_no_borders, mKeyboardColor, getResources(), DrawableUtil.Mask.SQUARE));
+        }
 
-        setButtonTheme(mKeyboardColor, buttonsBackground, buttonsBackground, null, 0);
+        Drawable backspaceButtonBackground = DrawableUtil.tintBackgroundDrawable(R.drawable.selector_default_white_no_borders, mKeyboardColor, getResources(), DrawableUtil.Mask.SQUARE);
+
+        setButtonTheme(mKeyboardColor, buttonsBackground, backspaceButtonBackground, null, 0);
     }
 
 
-    private void setButtonTheme(int color, Drawable numButtonsBackground, Drawable backspaceButtonBackground, Drawable fingerprintButtonBackground, int margin) {
+    private void setButtonTheme(int color, List<Drawable> numButtonsBackground, Drawable backspaceButtonBackground, Drawable fingerprintButtonBackground, int margin) {
 
         for (SquareButton squareButton : mNumberButtons) {
             squareButton.setTextColor(color);
-            if (numButtonsBackground.getConstantState() != null)
-                squareButton.setBackground(numButtonsBackground.getConstantState().newDrawable()); //workaround for very very strange issue!!
+            squareButton.setBackground(numButtonsBackground.get(mNumberButtons.indexOf(squareButton))); //workaround for very very strange issue!!
 
             ((LinearLayout.LayoutParams) squareButton.getLayoutParams()).setMargins(margin, margin, margin, margin);
 
