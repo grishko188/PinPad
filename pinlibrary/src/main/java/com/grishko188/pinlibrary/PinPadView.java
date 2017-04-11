@@ -358,6 +358,9 @@ public class PinPadView extends RelativeLayout {
             FingerprintUiHelper.FingerprintUiHelperBuilder mFingerprintUiHelperBuilder = new FingerprintUiHelper.FingerprintUiHelperBuilder(getContext());
             mFingerprintUiHelper = mFingerprintUiHelperBuilder.build(mKeyboard, getConfig().getFingerprintAuthListener());
             mKeyboard.setFingerprintEnable(mFingerprintUiHelper.isFingerprintAuthAvailable());
+        } else {
+            mFingerprintUiHelper = null;
+            mKeyboard.setFingerprintEnable(false);
         }
     }
 
