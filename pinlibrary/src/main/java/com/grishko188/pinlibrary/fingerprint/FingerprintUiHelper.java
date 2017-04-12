@@ -20,7 +20,7 @@ import com.grishko188.pinlibrary.interfaces.OnFingerprintAuthListener;
 public class FingerprintUiHelper extends FingerprintManagerCompat.AuthenticationCallback {
 
     private static final long ERROR_TIMEOUT_MILLIS = 1600;
-    private static final long SUCCESS_DELAY_MILLIS = 1300;
+    private static final long SUCCESS_DELAY_MILLIS = 600;
 
     private final FingerprintManagerCompat mFingerprintManager;
     private final KeyboardView mKeyboard;
